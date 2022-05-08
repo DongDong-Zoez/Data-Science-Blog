@@ -1,0 +1,583 @@
+# Linear Algebra
+
+## Vector Space (向量空間)
+
+令 $V$ 為非空集合(元素為向量)，$F$ 為體(元素為純量)
+滿足以下八條規則稱 $(V,+,\cdot)$ 為佈於 $F$ 的向量空間 : 
+
+
+1. 向量加法結合律 
+$\forall$ $u,v,w \in V$, $(u + v) + w = u + (v + w)$
+2. 向量加法單位元素
+$\exists$ $0 \in V$ such that $\forall$ $v \in V$, we have $v+0 = 0+v = v$
+3. 向量加法反元素
+$\forall$ $v \in V$, $\exists -v \in V$ such that $v + (-v) = (-v) + v = 0$
+4. 向量加法交換律
+$\forall$ $u,v \in V$, $u+v = v+u$
+5. 純量乘法對向量加法有分配律
+$\forall$ $\alpha \in F$, $u,v \in V$, $\alpha \cdot(u+v) = \alpha \cdot u + \alpha \cdot v$
+6. 純量乘法對純量加法有分配律
+$\forall$ $\alpha, \beta \in F$, $v \in V$, $(\alpha + \beta) \cdot v = \alpha \cdot v + \beta \cdot v$ 
+7. 純量乘法結合律
+$\forall$ $\alpha, \beta \in F$, $v \in V$, $(\alpha\beta) v = \alpha(\beta v)$
+8. 乘法單位元素
+$\forall v \in V$, $1 \cdot v = v$
+
+**Note :** 
+- 向量空間必有零向量(非空)
+
+### Subspacce (子空間)
+
+令 $S$ 為 $V$ 的非空子集，且佈於同一 $F$ 上，稱 $(S,+, \cdot)$ 為 $(V,+,\cdot)$ 的子空間
+
+**Note** (令向量空間 $W$ 為向量空間 $V$ 的子空間) **:**
+
+- $\{0\}$, $V$ 皆為向量空間 $V$ 的顯然子空間(trivial subspace)
+- 歐式空間的子空間必然通過原點
+- 子空間有向量加法封閉性以及純量乘法封閉性
+  - $\forall$ $u,v\in W$, $\alpha \in F$, $\alpha u +v \in W$
+- $0 \in W$&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;(常用來判斷是否為子空間)
+- if $v\in  W$, then $-v \in W$ (常用來判斷是否為子空間)
+- 子空間交集仍為子空間
+- 子空間聯集為子空間，若且唯若子空間之間有包含關係
+
+### Sum space (和空間)
+
+假設 $W_1, \cdots, W_k$ 為 $V$ 的子空間，則 $\displaystyle \sum_{i = 1}^k W_i := \{\sum_{i=1}^kv_i|v_i \in W_i, 1 \leq i \leq k\}$ 稱為 $W_1, \cdots, W_k$ 的和空間
+
+**Note :**
+
+- 子空間的和空間仍為子空間
+- $W_1$ $\cup$ $W_2$ $\subseteq$ $W_1 + W_2$
+- $W_1 + W_2$ 是包含 $W_1$ $\cup$ $W_2$ 的最小子空間
+
+### Four Basis Spaces (四大基本子空間)
+
+假設 $A \in F^{m \times n}$
+
+1. Row space 為 $A$ row vector 的線性組合，$\mbox{RS}(A) = \{xA|x\in F^{1 \times m}\}$
+2. Column space 為 $A$ colume vector 的線性組合，$\mbox{CS}(A) = \{Ax|x\in F^{m\times 1}\}$
+3. kernal space 為 $Ax = 0$ 的 solution space，$\mbox{ker}(A) = \{x \in F^{m \times 1}|Ax = 0\}$
+4. left kernal space 為 $xA = 0$ 的 solution space，$L\mbox{ker}(A) = \{x \in F^{1 \times m}|xA = 0\}$
+
+**Note :**
+
+1. $\mbox{CS}(A) = \mbox{Range}(A) = \mbox{R}(A)$
+2. $\mbox{ker}(A) = \mbox{Nullspace}(A) = \mbox{Null(A)} = \mbox{N}(A)$
+3. $L\mbox{ker}(A) = \mbox{ker}(A^T)$，($A$ 的 row vector 為 $A^T$ 的 column vector)
+4. 列運算不改變 Row space 和 kernal space
+若$A$ row equivalent to $B$ 則 $\mbox{RS}(A) = \mbox{RS}(B)$ 且 $\mbox{ker}(A) = \mbox{ker}(B)$
+5. 行運算不改變 Column space 和 left kernal space
+若$A$ cloumn equivalent to $B$ 則 $\mbox{CS}(A) = \mbox{CS}(B)$ 且 $L\mbox{ker}(A) = L\mbox{ker}(B)$
+6. $\mbox{RS}(AB) \subseteq \mbox{RS}(B);$ $\mbox{CS}(AB) \subseteq \mbox{CS}(A)$
+7. 若 $AB = O$ 則 $\mbox{CS}(B)\subseteq \mbox{ker}(A);$ $\mbox{RS}(A) \subseteq L\mbox{ker}(B)$
+8. $Ax = b$ is consistent 若且唯若 $b \in \mbox{CS}(A)$
+
+**Clearly explaintion on feature 6. :**
+
+$$A_{m \times n}B_{n \times m} = \begin{bmatrix}
+ | & \vdots & | \\
+ a_1 & \cdots & a_n \\
+ | & \vdots & |
+\end{bmatrix}\begin{bmatrix}
+ b_{11} & \cdots & b_{1m}\\
+ \vdots & \ddots & \vdots\\
+ b_{n1} & \cdots & b_{nm}
+\end{bmatrix}$$
+$AB$ 可以看做是 $A$ Column vector 的線性組合，顯而易見地 $AB$ 的 Column space 自然會包含於 $A$ 的 Column space
+
+$$
+A_{m\times n}B_{n \times m} = \begin{bmatrix}
+ a_{11} & \cdots & a_{1n}\\
+ \vdots & \ddots & \vdots\\
+ a_{m1} & \cdots & a_{mn}
+\end{bmatrix}\begin{bmatrix}
+ － & b_1 & －\\
+ \cdots & \vdots & \cdots\\
+ － & b_n &－
+\end{bmatrix}
+$$
+
+$AB$ 也可以看做是 $B$ Row vector 的線性組合，顯而易見地 $AB$ 的 Row space 自然會包含於 $B$ 的 Row space
+
+**Clearly explaintion on feature 7. :**
+
+let $y \in \mbox{CS}(B)$, i.e., $y = Bx$ for some $x$, then we have following relation $AB = O \implies (AB)x = Ox = 0 \iff A(Bx) = 0 \iff Ay = 0 \iff y \in \mbox{ker}(A)$
+
+let $y \in \mbox{RS}(A)$, i.e., $y = xA$ for some $x$, then we have following relation $AB = O \implies x(AB) = xO = 0 \iff (xA)B = 0 \iff yB = 0 \iff y \in L\mbox{ker}(B)$
+
+### Solve Linear System (求解線性系統)
+
+令 $A \in F^{m \times n}$ 且 $x, b \in F^{1 \times n}$
+
+- 線性系統 $Ax = b$ 的其中一解稱為特解 (particular solution)
+- 線性系統 $Ax = 0$ 的解稱為零解 (homogeneous solution)
+- 線性系統 $Ax = b$ 的解為一個特解加上零解
+- A linear system $Ax = b$ is called consistent if $b \in \mbox{CS}(A)$
+- A linear system $Ax = b$ is called inconsistent if $b \notin \mbox{CS}(A)$
+
+### 線性系統求解演算法
+
+1. $\mbox{Input :}$ an consistent matrix $A_{m \times n}$ and vector $b$ which is in the column space of $A$
+1. Do row operation to obtain the echlon form $(A\mid b) \rightarrow (R \mid r)$
+2. Find all the free variables $y_1, \cdots, y_k$
+3. Set $y_1= \cdots = y_k = 0$, solve $Rx = r$ and get a particular solution $p$
+4. For each $i = 1, \cdots, k$ set $y_i = 1$ and other $y = 0$, solve $Rx = 0$ and get a homogeneous solution $\beta_i$
+5. $\mbox{Output :}$ $p + c_1\beta_1 + \cdots + c_k\beta_k$
+
+### Spanning Set and Generating Set (生成集與獨立集)
+
+令 $S$ 為向量空間 $V_F$ 的子集合，$\displaystyle span(S) = \{\sum_{i = 1}^{k}\alpha_i v_i \mid v_i \in S, \alpha_i \in F, 1 \leq i \leq k\}$ 稱為集合 $S$ 的生成空間而 $S$ 為$span(S)$ 的生成集
+
+**Note** (令 $S,S_1,S_2$ 為向量空間 $V_F$ 的子集合) **:**
+
+- 我們約定 $span(\phi) = \{0\}$
+- $span(S)$ 滿足加法與存量乘法封閉性，為包含 $S$ 的最小子空間
+- $\mbox{RS}(A) = span(\{\mbox{all the row vector in A}\})$
+- $\mbox{CS}(A) = span(\{\mbox{all the column vector in A}\})$
+- $S \subseteq span(S)$ 且若 $S_1 \subseteq S_2 \subseteq V$ 則 $span(S_1) \subseteq span(S_2)$
+- $span(S_1)$ $\cup$ $span(S_2) \subseteq span(S_1$ $\cup$ $S_2)$ 
+- $span(S_1)$ $\cap$ $span(S_2) \supseteq span(S_1$ $\cap$ $S_2)$ 
+- $S$ 為 $W$ 的子空間，則 $span(S) \subseteq W$
+
+### 和空間的生成集
+
+若 $W_1 = span(S_1)$, $W_2 = span(S_2)$，則$W_1 + W_2 = span(S_1$ $\cup$ $S_2) = span(S_1) + span(S_2)$
+
+**Note :**
+
+- 求和空間時，就取個別生成集聯集
+
+## Linear independent and Linear dependent (線性獨立與線性相依)
+
+假設 $V_F$ 為向量空間且有子集 $S$，給定有現向量 $v_1,\cdots,v_k \in S$ 和純量 $c_1,\cdots,c_k \in F$
+
+若 $c_1v_1 + \cdots + c_kv_k = 0 \iff c_i \neq 0$ for some $1\leq i \leq k$，則稱 $S$ 為線性相依集
+若 $c_1v_1 + \cdots + c_kv_k = 0 \iff c_i = 0$ for all $1\leq i \leq k$，則稱 $S$ 為線性獨立集
+
+**Note :**
+
+- 我們約定 $\phi$ 為線性獨立集
+- 向量空間的子集不是線性相依就是線性獨立
+- $\{0\}$ 是線性相依集 $\implies$ 所有含有 $\{0\}$ 的子集向量必是線性相依集
+- 若 $S$ 為線性相依集，則表示 $S$ 中的元素可以表示為其他元素線性組合
+- 包含線性相依的子集必是線性相依，線性獨立集的子集必是線性獨立
+- $\{v_1,\cdots,v_n\} \in \mathbb{R}^n$ 是線性獨立集，則 $\{Av_1,\cdots,Av_n\} \in \mathbb{R}^n$ 是線性獨立集 $\iff A$ 可逆
+
+### 線性獨立判別法
+
+1. 依照定義做驗證
+2. 以列向量的形式排成矩陣做列運算
+3. $\mbox{Wronskian}$ 線性獨立判別法 (多用在函數的向量空間判斷)
+
+設 $f_1, \cdots, f_n \in C^{(n-1)}[a,b]$，$f_1, \cdots, f_n$ 的 $\mbox{Wromskian}$ 定義為
+
+$$
+W[f_1, \cdots, f_n](x) = \begin{vmatrix}
+ f_1(x) & f_2(x) & \cdots & f_n(x)\\
+ f_1^{\prime}(x) &  f_2^{\prime}(x) & \cdots &  f_n^{\prime}(x)\\
+ \vdots & \vdots & \ddots & \vdots\\
+  f_1^{(n-1)}(x) &  f_2^{(n-1)}(x) & \cdots &  f_n^{(n-1)}(x)
+\end{vmatrix}
+$$
+
+如果存在 $x_0 \in [a, b]$ such that $W[f_1, \cdots, f_n](x) \neq 0$ , 則 $f_1,\cdots,f_n$ 為線性獨立集
+
+## Basis and Space Property (基底與空間特性)
+
+向量空間 $V_F$ 的子集 $S$ 如果滿足 $span(S) = V$ 和 $S$ 為獨立集，則稱 $S$ 為 $V$ 的一組基底
+向量空間的維度被定義為基底的基數 (the dimension of vector space is the cardinality of a basis)
+
+**Note :**
+
+- 我們約定 $\{0\}$ 的基底是 $\phi$
+- 一個不為獨立集的生成集必可移除一些向量使其成為一組基底
+- 一個不為生成集的獨立集必可添加一些向量使其成為一組基底
+- $S$ 為 $V$ 的基底 $\iff$ $S$ 是 $V$ 的最小生成集 $\iff$ $S$ 是 $V$ 的最大獨立集
+- $\{v_1,\cdots,v_n\} \in \mathbb{R}^n$ 是一組基底，則 $\{Av_1,\cdots,Av_n\} \in \mathbb{R}^n$ 是一組基底 $\iff A$ 可逆
+
+### 四大子空間的基底
+
+求 $A$ 四大子空間基底，先做列運算 $A \rightarrow R$，則我們有
+
+1. nonzero row vectors of $R$ form a basis of $\mbox{RS}(A)$
+2. the pivot of $R$ corresponse to column vectors of $A$ form a basis of $\mbox{CS}(A)$
+3. $\mbox{ker}(A) = \mbox{ker}(R)$ , therefore the basis of $\mbox{ker}(R)$ form a basis of $\mbox{ker}(A)$
+4. $L\mbox{ker}(A) = \mbox{RS}(A)^{\bot}$ , therefore the vectors which perpendecular to the vectors in $\mbox{RS}(A)$ form a basis of $L\mbox{ker}(A)$
+5. if $A = PR$ and $\mbox{rank}(A) = r$ , $P$ is invertible, then exactly $r$ column vectors from mostleft form a basis of $\mbox{CS}(A)$
+
+**Note :**
+
+- $A = PR$ means that $A$ is row equivalent to $R$ and the procedure are represented by matrix $P$
+
+#### Dimension of Sum Space (和空間維度)
+
+$\mbox{dim}(V) < \infty$，且 $W_1$, $W_2\subseteq V_F$ ，則 $\mbox{dim}(W_1 + W_2) = \mbox{dim}(W_1) + \mbox{dim}(W_2) - \mbox{dim}(W_1$ $\cap$ $W_2)$
+
+**Note :**
+
+- $\mbox{dim}(W_1 + W_2) = \mbox{dim}(W_1) + \mbox{dim}(W_2) \iff W_1$ $\cap$ $W_2 = \{0\}$
+- 和空間維度公式不適用於排容原理
+
+## Linear transformation (線性映射)
+
+在佈於 $F$ 上的向量空間 $V$ , $W$，若函數 $T:V \rightarrow W$ 滿足 $\forall$ $u, v \in V$ , $c \in F$ 有
+$T(u+cv) = T(u) + cT(v)$，則稱 $T$ 為從 $V$ 到 $W$ 的線性映射，寫作 $T \in L(V, W)$
+
+令 $X,Y$ 為 $V,W$ 的子集
+$T(X) = \{T(v)\mid v \in X\}$ 稱為 $X$ 之於 $T$ 的像 (image)
+$T^{-1}(Y) = \{v \in V\mid T(v) \in Y\}$ 稱為 $Y$ 之於 $T$ 的反像 (preimage)
+
+**Note :**
+
+- $T(0) = 0$ 且 $T^{-1}$ 並非 $T$ 的反函數
+- 微分運算與積分運算為線性映射且有不可逆的矩陣表示法
+- 若 $T,U \in L(V,W)$，則 $T = U \iff T(b_i) = U(b_i)$ 其中 $b_i$ , $1 \leq i \leq n$ 形成 $V$ 的一組基底
+- 對於同一個有序基底，線性變換存在唯一的矩陣表示法
+
+## Rank of a Matrix (矩陣的秩)
+
+對於任意矩陣 $A$ , $\mbox{dim}(\mbox{RS}(A))$ 稱為 row rank of $A$
+對於任意矩陣 $A$ , $\mbox{dim}(\mbox{CS}(A))$ 稱為 column rank of $A$
+
+The definition of the rank of a matrix $A$ is the  dimension of Vector space spanned by the columns of $A$, or the dimension of Vector space spanned by the row of $A$, equivalently, 
+
+$\mbox{rank} = \mbox{dim}(\mbox{RS}(A)) = \mbox{dim}(\mbox{CS}(A))$  &emsp;(詳見如何找四大空間基底)
+
+**Note :**
+
+- 矩陣的秩可以看做可控參數的數目，而核空間的維度可以看做自由參數的數目 (參考自由度)
+- $A \in F^{n \times n}$ 可逆 $\iff$ $A$ 是滿秩的 (full rank and $\mbox{rank}(A) = n$)
+
+### Sylvester Theorem (秩 零度定理)
+
+假設線性變換 $T \in L(V,W)$ 有矩陣表示法 $A \in F^{m \times n}$ 且 $\mbox{dim}(V) < \infty$，則以下數學式常用
+
+1. $n = nullity(A) + \mbox{rank}(A)$
+2. $m = nullity(A^T) + \mbox{rank}(A^T) = nullity(A^T) + \mbox{rank}(A)$
+3. $\mbox{dim}(V) = nullity(T) + \mbox{rank}(T)$
+4. $V = \mbox{ker}(T) + \mbox{Im}(T) \iff \mbox{ker}(T)$ $\cap$ $\mbox{Im}(T) = \{0\}$
+
+### Property of the Rank (秩的特性)
+
+1. $\mbox{rank}(A) = \mbox{rank}(A^T)$
+2. $\mbox{rank}(A) \leq \min\{m,n\}$
+3. If $A$ is row / column equivalent to $R$ then $\mbox{rank}(A) = \mbox{rank}(B)$
+4. $\mbox{rank}(AB) \leq \min \{\mbox{rank}(A), \mbox{rank}(B)\}$
+5. 若方陣 $P$ 可逆，則 $\mbox{rank}(PA) = \mbox{rank}(A)$ , $\mbox{rank}(AP) = \mbox{rank}(A)$
+6. $\mbox{rank}(A+ B) \leq \mbox{rank}(A) + \mbox{rank}(B)$
+7. $Ax = b$ is consistent $\iff$ $\mbox{rank}([A \mid b]) = \mbox{rank}(A)$
+8. $\forall$ $b \in \mathbb{R}^{m \times 1}$ , $Ax = b$ is consistent $\iff \mbox{rank}(A) = m$
+$m=n \implies$ exactly one solution
+$m < n \implies$ infinty solutions
+ 
+
+**Clearly explaintion :**
+
+1. 矩陣的轉置會把 Column space 和 Row space 對調，並不影響他們的基底，故秩相同
+2. Column space 和 Row space 的維度相同，故矩陣秩最大只能到$\min \{\mbox{dimension of Column / Row space}\}$
+3. 行列運算並不改變 Column space 和 Row sapce，故秩相同
+4. $AB$ 可以看做 $A$ column vectors 的線性組合或 $B$ row vectors 的線性組合，故 $AB$ 的秩較小
+5. $PA$ 中的 $P$ 可以看做基本列運算，故 $A$ is row equivalent to $PA$，故秩相同，同理可得後者
+6. 矩陣的秩可以看做可控參數的數目，故分別可控的數量必比和空間要多 ($A$ 中可能存在某些向量與 $B$ 中的向量線性相依)
+7. 增廣矩陣秩不變表示 $b$ 為 $A$ 中 column vectors 的線性組合，也就是說 $b \in \mbox{CS}(A)$
+8. 由秩零度定理知，$nullity(A) > 0$，自由參數大於 $1$ ，故無限多組解
+
+## Direct Sum and Projection (直和與投影)
+
+對於向量空間 $V_F$ 與子空間 $W_1, \cdots, W_k$，若 $W_i$ $\cap$ $\displaystyle\sum_{i\neq j}W_j = \{0\}$ where $1\leq i \leq k$ 則稱 $W_1, \cdots, W_k$ 為獨自子空間，且若有 $V = \displaystyle \sum_{i=1}^kW_i$，則稱 $W_1, \cdots, W_k$ 為 $V$ 的一個直和，記做 $V = W_1 \oplus W_2 \cdots \oplus W_k$
+
+**Note :**
+
+- 對於任意 $v \in V$ 存在唯一方式分解成 $\sum w_i$ for $1\leq i\leq k$ 其中 $w_i \in W_i$
+- 任何一個**方陣**必可分解成一個對稱矩陣加上一個反對稱矩陣
+- 任何一個**實函數**必可分解成一個奇函數加上一個偶函數
+
+### Projection Matrix (投影矩陣)
+
+若 $T \in L(V,V)$ 滿足 $T^2 = T$ 則稱 $T$ 為 $V$ 上的投影/冪等算子 (projection / idempotent operator)
+若 $A \in F^{m\times n}$ 滿足 $A^2 = A$ 則稱 $A$ 為投影/冪等矩陣 (projection / idempotent matrix)
+
+**Note :**
+
+1. 投影矩陣投影兩次等於投影一次
+2. 投影矩陣把被投影的向量投影到該矩陣的 Column space 上
+3. $I_n - \frac{1}{n}J_n$ 為投影矩陣
+4. 若 $A,B$ 皆為對稱矩陣，且滿足 $AB$ 為投影矩陣，則 $BA$ 為投影矩陣
+5. 若 $A$ 為投影矩陣，則 $I - A$ 也是投影矩陣
+6. 若方陣 $A$ 為投影矩陣，則 $A = I$ 或 $A$ 不可逆
+
+**Clearly explaintion :**
+
+1. 把向量 $x$ 投影到 $A$ 的 Coumn space 上後，$x \in \mbox{CS}(A)$，在投影一次也是一樣的結果
+2. $Ax$ 代表 $A$ column vectors 的線性組合，自然投影到 $\mbox{CS}(A)$ 上，且投影兩次結果不變
+3. $(I_n - \frac{1}{n}J_n)^2 = I_n - \frac{2}{n}J_n + \frac{1}{n^2}J_n^2 = I_n - \frac{1}{n}J_n$
+4. $(BA)^2 = ((A^TB^T)^T)^2 = ((AB)^T)^2 = ((AB)^2)^T = (AB)^T = BA$
+5. 投影矩陣把向量投影到不同的獨立子空間後，根據直和的定義，他在各個獨立子空間有唯一分解表達式，故把表達式加總後會回到原來的向量，也就是說 $I_n = (I_n - A) \oplus A$ 為投影矩陣 (詳見譜分解定理)
+6. 如果投影矩陣把原空間投影到相同的空間，則投影矩陣為單位矩陣
+如果投影矩陣把原空間投影到更低的維度時，他必然捨棄一些維度，故 $A$ 不可逆
+
+### Orthogonal Projection (正交投影)
+
+若 $V = X\oplus Y$， 根據直和定義 $\forall \ z \in V$ $z =x + y$ 其中 $x \in X$ , $y \in Y$，且線性算子 $T(z) = x$，則稱線性算子 $T$ 為沿著 $Y$ 在 $X$ 上的投影，更進一步，若 $X$ 正交於 $Y$，則稱為正交投影
+
+**Example :** 在 $\mathbb{R}^3$ 中，$\mathbb{R}^3 = P \oplus L$，其中 $P$ 為一平面，$L$ 為一條直線，且 $L$ 不在 $P$ 上，則任何向量 $z \in \mathbb{R}^3$ 皆可表示為 $P$ 上的點和 $P$ 外的點的和，而 $P$ 上的點為 $P$ 外的點沿著 $L$ 在 $P$ 上的投影
+
+## Change Basis and Coordinates Matrix (基底變換與基底變換矩陣)
+
+假設 $\beta = \{b_1 ,\cdots ,b_n\}$ 為向量空間 $V$ 的一組有序基底，則任何一個向量 $v \in V$ 可以用 $\beta$ 中的基底表示，有 $v = c_1b_1 + \cdots + c_nb_n$，且是唯一表示，記做 $\begin{bmatrix}v\end{bmatrix}_{\beta}$
+
+假設有另外一組有序基底 $\alpha = \{a_1,\cdots,a_n\}$，令矩陣 $A, B$ 的 Column vector 分別由 $\alpha, \beta$ 表示，
+定義 $\alpha$ 到 $\beta$ 的基底變換矩陣為 $P = [\ [a_1]_{\beta}, \cdots, [a_n]_{\beta}\ ]$ 其 Colmn vector 為 $A$ 的 Column vector 在 $\beta$ 基底下的表示法係數，且有以下關係 : 
+
+1. $\forall\ v \in V$ , $\begin{bmatrix}v\end{bmatrix} _{\beta} = P\begin{bmatrix}v\end{bmatrix}_{\alpha}$
+2. $BP = A$ or equivalently $P = B^{-1}A$
+
+**Clearly explaintion :**
+
+1. $\begin{bmatrix}v\end{bmatrix}_{\alpha}$ 為在 $\alpha$ 基底下的表示係數，而矩陣 $P$ 為 $\alpha$ 基底在 $\beta$ 基底下的表示係數
+2. 考慮 $BPv = Av$， $Av$ 為 $\alpha$ 中基底的線性組合，即用 $\alpha$ 基底來看向量 $v$
+$BPv$ 為 $\beta$ 中基底的線性組合，即用 $\beta$ 基底來看向量 $v$，故兩者相同
+
+## 線性變換矩陣表示法
+
+求性線變換 $T \in L(V,V)$ 相對於 $\alpha$ 的矩陣 $A$ 表示法，先看基於哪一組基底 $(\alpha)$ (一般為標準正交基) ，將基底帶入線性算子中即為 $A$ 的 Column vector，再用 $\alpha$，記做 $\begin{bmatrix}T\end{bmatrix}_{\alpha}$
+
+$$
+A = \begin{bmatrix}
+\mid &  & \mid \\
+[T(a_1)]_{\alpha} & \cdots & [T(a_n)]_{\alpha} \\
+\mid &  & \mid
+\end{bmatrix}
+$$
+
+求性線變換 $T \in L(V,W)$ 相對於 $\alpha$ 到 $\beta$ 的矩陣 $A$ 表示法，先看基於哪一組基底 $(\alpha)$ (一般為標準正交基) ，將基底帶入線性算子中再用 $\beta$ 的基底表示，即為 $A$ 的 Column vector，記做 $\begin{bmatrix}T\end{bmatrix}_{\alpha}^{\beta}$
+
+$$
+A = \begin{bmatrix}
+\mid &  & \mid \\
+\begin{bmatrix}T(a_1)\end{bmatrix}_{\beta} & \cdots & \begin{bmatrix}T(a_n)\end{bmatrix}_{\beta} \\
+\mid &  & \mid
+\end{bmatrix}
+$$
+
+**Note :** (這裡假設 $T\in L(V,W)$ 且 $\alpha, \gamma$ 為 $V$ 的一組基底 $\beta, \gamma'$ 為 $W$ 的一組基底)
+
+1. $\forall\ v \in V$ , $\begin{bmatrix}T(v)\end{bmatrix} _{\beta} = \begin{bmatrix}T\end{bmatrix}_{\alpha}^{\beta}\begin{bmatrix}v\end{bmatrix}_{\alpha}$
+2. $\begin{bmatrix}T\end{bmatrix}_{\alpha}^{\beta} = \begin{bmatrix}I\end{bmatrix}_{\gamma'}^{\beta}\begin{bmatrix}T\end{bmatrix}_{\gamma}^{\gamma'}\begin{bmatrix}I\end{bmatrix}_{\alpha}^{\gamma}$
+
+### Similarity of the Square Matrix (方陣的相似)
+
+考慮方陣 $A, B$ 若存在 可逆矩陣 $P$ 滿足 $B = P^{-1}AP$ 則稱 $A$ 與 $B$ 相似 記做 $A$ $\sim$ $B$
+
+**Note :** (假設 $A \sim B$ )
+
+1. 方陣的相似性為等價關係
+2. $I$ 只與 $I$ 相似， $O$ 只與 $O$ 相似
+3. 同一個線性變換在不同基底之下的矩陣表示法相似
+4. $A^T \sim B^T$ 和 $A^k \sim B^k$
+5. $A + cI \sim B + cI$
+6. $f(A) \sim f(B)$ 其中 $f$ 為多項式函數
+7. 若 $A, B$ 可逆，則 $A^{-1} \sim B^{-1}$
+8. $\mbox{tr}(A) = \mbox{tr}(B)$
+9. $\mbox{det}(A) = \mbox{det}(B)$
+10. $\mbox{rank}(A) = \mbox{rank}(B)$ 且 $nullity(A) = nullity(B)$
+
+反過來說，以上一項不成立，則 $A \not\sim B$
+
+## Eigenvalue and Eigenvetor (特徵值與特徵向量)
+
+對於矩陣 $A \in F^{n \times n}$，若存在 $\lambda \in \mathbb{R}$ 和**非零**向量 $v \in F^{n\times 1}$，使得 $Av = \lambda v$，則稱 $\lambda$ 為矩陣 $A$ 的特徵值，$v$ 為矩陣 $A$ 的特徵向量
+
+**Note :**
+
+1. $\lambda$ 為矩陣 $A$ 的特徵值 $\iff \mbox{det}(A - \lambda I) = 0$
+2. $\mbox{ker}(A)$ 中的非零向量均為特徵值 $0$ 對應的特徵向量
+3. 若 $v_1, v_2$ 為相對於 $\lambda$ 的特徵向量，則 $v_1 +v_2$ $(\neq 0)$ 亦為相對於 $\lambda$ 的特徵向量
+4. 並非每個矩陣都有特徵值
+5. 若 $A \sim B$，則 $A$ 和 $B$ 有相同特徵值與相對應的特徵向量 $v, P^{-1}v$
+6. $AB$ 和 $BA$ 有相同特徵值
+7. $A$ 和 $A^T$ 有相同特徵值
+8. 若 $A$ 的各行(列)元素和均為 $c$，則必有特徵值 $c$
+9. $A$ 可逆 $\iff$ $0$ 不為 $A$ 的一個特徵值
+10. 如果 $\lambda$ 是 $A$ 相對於 $v$ 的特徵值，則
+  $\frac{1}{\lambda}$ 為 $A^{-1}$ 相對於 $v$ 的特徵值
+  $\lambda^k$ 為 $A^k$ 相對於 $v$ 的特徵值
+  $f(\lambda)$ 為 $f(A)$ 相對於 $v$ 的特徵值，其中 $f$ 為多項式函數
+  
+### characteristic polynomial (特徵多項式)
+
+假設 $A \in F^{n\times n}$，則特徵多項式被定義為 $char_A(\lambda) = \mbox{det}(A - \lambda I)$，即解特徵值的方程式
+
+**Note :**
+
+1. 若 $A \sim B$，則 $char_A(\lambda) = char_B(\lambda)$
+2. $A, B \in F^{n \times n}$，則 $char_{AB}(\lambda) = char_{BA}(\lambda)$
+3. $char_A(\lambda) = (-\lambda)^n + tr_1(A)(-\lambda)^{n-1} + \cdots + tr_{n-1}(A)(-\lambda) + tr_n(A)$，其中 $tr_i(A)$ 為 $A$ 中所有恰含 $i$ 的對角項的 $i$ 階子行列式的和
+4. 若 $A$ 有特徵值 $\lambda_1,\cdots, \lambda_k$，則 $\lambda_1 + \cdots + \lambda_k = \mbox{tr}(A)$，$\lambda_1\lambda_2\cdots \lambda_k = \mbox{det}(A)$
+
+### Eigenspace and multiplicity (特徵空間和重數)
+
+假設 $A \in F^{n\times n}$，$v \in F^{n\times 1}$ 為 $A$ 的特徵向量，定義 $E_{\lambda_i} = \{v \mid Av = \lambda_i v，\lambda_i \in \mathbb{R}\} = \mbox{ker}(A - \lambda I)$ 為 $\lambda_i$ 的特徵空間
+
+代數重數為特徵值 $\lambda_i$ 的重根個數，記做 $am(\lambda_i)$
+幾何重數為特徵空間 $E_{\lambda_i}$ 的維度，記做 $gm(\lambda_i)$
+
+**Note :**
+
+1. $\lambda$ 對應的特徵向量為 $E_{\lambda_i}$ 中的非零向量
+2. $\lambda_1,\cdots,\lambda_k$ 為相異特徵值，則 $E_{\lambda_1},\cdots,E_{\lambda_k}$ 為獨立子空間
+3. $gm(\lambda) = \mbox{dim}(E_{\lambda}) = nullity(T - \lambda I) = n - \mbox{rank}(T - \lambda I)$
+4. $gm(0) = \mbox{dim}(E_0) = nullity(T) = n - \mbox{rank}(A)$
+5. $1 \leq gm(\lambda) \leq am(\lambda) \leq n$
+6. 若 $\mbox{rank}(A) = k$，則 $A$ 的相異特徵值最多 $k$ 個
+
+## Diagonalizable (可對角化)
+
+假設 $A \in F^{n\times n}$，若存在可逆矩陣 $P$ 使得 $P^{-1}AP = D$，其中 $D$ 為對角矩陣，則稱 $A$ 可對角化，即 $A \sim D$
+
+**Clearly explantion on diagonalizable:**
+
+矩陣對角化的精神在於用特徵向量當作基底，來表達任何一個在 $V$ 中的向量，換句話說，如果特徵向量為 $V$ 的生成集，則 $v \in V$ 必可表示為特徵向量之和，過程如下 : 
+
+**Input :** a square matrix $A$
+
+1. Compute the characteristic polynomial $char_A(\lambda) = \mbox{det}(A - \lambda I)$
+2. Factor $char_A(\lambda) = (\lambda - \lambda_1)^{m1}(\lambda - \lambda_2)^{m2}\cdots(\lambda - \lambda_k)^{mk}$
+3. For each $\lambda_i$ , compute a basis of $E_{\lambda_i} = \mbox{ker}(A - \lambda_i I)$ and let $d_i = \mbox{dim}(E_{\lambda_i})$
+4. If $d_i = m_i$ for $i = 1,\cdots,k$ then go to $5.$
+If $d_i \neq m_i$ for some $i$ , then not diagonalizable
+5. $$D = \begin{bmatrix} \lambda_1 & \cdots & 0 \\ \vdots & \ddots & \vdots \\ 0 & \cdots & \lambda_k\end{bmatrix} \mbox{and}\ P = \begin{bmatrix}\mid & & \mid \\ v_1 & \cdots & v_k \\ \mid & & \mid\end{bmatrix} \ \mbox{where $v_i$ are the eigenbasis of $E_{\lambda_i}$}$$
+6. $A = PDP^{-1}$ or $D = P^{-1}AP$
+
+**Note :** 
+
+1. $A \in F^{n\times n}$ 可對角化 $\iff A$ 有 $n$ 個線性獨立的特徵向量
+2. $A \in F^{n\times n}$ 有 $n$ 個相異的特徵值，則 $A$ 有 $n$ 個相互獨立的特徵向量
+3. 若 $A$ 可對角化，則 $A^T, A^{-1}, A^k, f(A)$ 皆可對角化，其中 $f$ 為多項式函數
+4. $A$ 可否對角化與可逆無關 ( $O$ 矩陣可對角化)
+5. 實對稱矩陣皆可對角化
+6. $A$ 可對角化 $\iff$ $am(\lambda_i) = gm(\lambda_i)$ for $i = 1,\cdots,k$
+7. $A$ 的特徵值皆為 $\pm 1 \implies$ $A^2 = I$
+8. 若 $A$ 為投影矩陣，則 $A$ 必可對角化，且 $A$ 的特徵值為 $0$ 或 $1$
+9. 若 $A$ 為投影矩陣，則 $E_{0} = \mbox{ker}(A)$ 和 $E_{1} = \mbox{CS}(A)$
+
+## Eigen Value Decomposition (特徵值分解)
+
+特徵值分解為對角化的特例，若 $A \in F^{n\times n}$ 為**對稱**矩陣，則 $A$ 的特徵向量會正交，我們令各個特徵基底的長度為 $1$，則特徵基底會形成一組**正交基**，則我們可以分解矩陣 $A$ 為向量投影到不同特徵空間
+
+$$
+A = \sum_{i=1}^k\lambda_i V_i\ V_i^T = \sum_{i = 1}^k\lambda_i P_i
+$$
+
+- $\lambda_i$ 為 $A$ 的特徵值，$v_i$ 為對應於 $\lambda_i$ 的特徵值
+- $V_i$ 的 Column vectors 為 $E_{\lambda_i}$ 中的基底，(各個 $V_i$ 大小取決於$E_{\lambda_i}$ 的維度)
+- $P_i = V_i\ V_i^T$，有 $P_i \ P_j \neq 0$ for $i \neq j$ 和 $\sum P_i = I$ , $P_i^2 = P_i$
+
+**Clearly explantion :** (為了便於解釋，假設所有特徵值相異)
+
+考慮 $V V^Tu$，向量 $u$ 投影到 $v$ 上的公式是 $\frac{<v,u>}{||v||^2}v$，而 $VV^Tu$ 正是把 $u$ 投影到特徵向量上表示出來 : 
+
+$$
+VV^Tu = \begin{bmatrix}
+\mid & & \mid \\
+v_1 & \cdots & v_n \\
+\mid & & \mid
+\end{bmatrix}\begin{bmatrix}
+\mid & & \mid \\
+v_1 & \cdots & v_n \\
+\mid & & \mid
+\end{bmatrix}^T\begin{bmatrix}
+u_0\\
+\vdots\\
+u_n
+\end{bmatrix} = \begin{bmatrix}
+\mid & & \mid \\
+v_1 & \cdots & v_k \\
+\mid & & \mid
+\end{bmatrix}\begin{bmatrix}
+<v_1,u>\\
+\vdots\\
+<v_n,u>
+\end{bmatrix}
+$$
+$\ \ \ \ \ \ \ \ \ \ \ \ = \ <v_1,u>v_1 + <v_2,u>v_2 + \cdots + <v_n,u>v_n$
+
+$\mbox{Which represent as a projection onto Eigenspace than scale by the value of inner product.}$
+
+$\mbox{An alternative view is direct sum, that is, seperate a vector into independent Eigen subspace.}$
+
+$\mbox{Note that}$ $P_i$ $\mbox{stand for the projection matrix, and Vector space}$ $V = E_{\lambda_1}\oplus\cdots\oplus E_{\lambda_k}$ $\mbox{therefore, every Eigenspace is independent subspace, which implies}$ $P_i \ P_j = 0 \ \mbox{for} \ i \neq j.$
+$\mbox{Moreover, the direct sum indicates that}$ $P_i$ $\mbox{contains a part of representation of}$ $v$ $\mbox{and it is}$
+$\mbox{unique, hence, we paste every component together will return to}$ $v$ $\mbox{itself, which implies that}$ $\sum P_i = I.$
+
+### Simulltaneously diagonalizable (同步對角化)
+
+設 $A, B \in F^{n\times n}$ 若存在可逆矩陣 $P \in F^{n\times n}$ 使得 $P^{-1}AP = D$，$P^{-1}BP = \Lambda$ 皆為對角矩陣，則稱 $A, B$ 可同步對角化
+
+**Note :**
+
+- $A, B$ 可同步對角化 $\iff AB = BA$
+
+### Diagonalization and function limit (對角化與函數極限)
+
+定義 $e^A = \displaystyle \sum_{n=0}^{\infty}\frac{A^n}{n!}$，$\sin A, \cos A$ 也是同樣的定義方法
+若 $B$ 滿足 $B^2 = A$，則稱 $B = A^{1/2}$
+假設 $A_1, \cdots, A_n$ 為方陣形成的序列，若 $\displaystyle\lim_{k \to \infty}(A_k)_{ij} = A_{ij}$，則稱序列極限存在且收斂到 $A$，
+記做 $\displaystyle \lim_{k \to \infty}A_k = A$
+
+**Note :**
+
+- 若 $A \sim B$，則 $e^A \sim e^B$
+- 若 $\lambda$ 為 $A$ 相對於 $v$ 的特徵值，則 $e^{\lambda}$ 為 $e^A$ 相對於 $v$ 的特徵值
+- $\mbox{det}(e^A) = e^{tr(A)}$
+- 若 $A$ 可對角化成 $D$，則 $e^A = P\ e^DP^{-1}$ 為可逆矩陣
+- 若 $A$ 為實對稱矩陣，則 $e^A$ 為對稱且正定矩陣
+- 若 $B = PAP^{-1}$，則 $\displaystyle \lim_{k \to \infty}B^k = PDP^{-1}$，其中 $\displaystyle\lim_{k \to \infty}A^k = D$
+- 可對角矩陣的特徵值若滿足 $\mid\ \lambda\mid \leq 1$，則此對角矩陣會收斂
+
+**Clearly explaintion :**
+
+1. 假設存在可逆矩陣 $P$ 使得 $B = PAP^{-1}$，則 $e^B = \sum\frac{B^n}{n!} = \sum\frac{(PAP^{-1})^n}{n!} = \sum\frac{PA^nP^{-1}}{n!} = Pe^AP^{-1}$，故 $e^A \sim e^B$
+2. 假設 $Av = \lambda v$，則 $e^Av = \sum\frac{A^nv}{n!} = \sum \frac{\lambda^nv}{n!} = e^{\lambda}v$，故相對於 $v$ 特徵值為 $e^{\lambda}$
+3. 矩陣行列式為特徵值相乘，故得此結論
+4. $e^D$ 為正定矩陣，故特徵值皆為正數 $\implies \mbox{det}(e^D) \neq 0$
+5. 若 $A^T = A$，則 $(e^A)^T = \sum \frac{(A^T)^n}{n!} = \sum \frac{A^n}{n!} = e^A$，且有特徵值 $e^{\lambda_i} \geq 0$，故 $e^A$ 為對稱正定矩陣
+
+### Simulltaneously diagonalizable (同步對角化)
+
+設 $A, B \in F^{n\times n}$ 若存在可逆矩陣 $P \in F^{n\times n}$ 使得 $P^{-1}AP = D$，$P^{-1}BP = \Lambda$ 皆為對角矩陣，則稱 $A, B$ 可同步對角化
+
+**Note :**
+
+- $A, B$ 可同步對角化 $\iff AB = BA$
+
+### Diagonalization and function limit (對角化與函數極限)
+
+定義 $e^A = \displaystyle \sum_{n=0}^{\infty}\frac{A^n}{n!}$，$\sin A, \cos A$ 也是同樣的定義方法
+若 $B$ 滿足 $B^2 = A$，則稱 $B = A^{1/2}$
+假設 $A_1, \cdots, A_n$ 為方陣形成的序列，若 $\displaystyle\lim_{k \to \infty}(A_k)_{ij} = A_{ij}$，則稱序列極限存在且收斂到 $A$，
+記做 $\displaystyle \lim_{k \to \infty}A_k = A$
+
+**Note :**
+
+- 若 $A \sim B$，則 $e^A \sim e^B$
+- 若 $\lambda$ 為 $A$ 相對於 $v$ 的特徵值，則 $e^{\lambda}$ 為 $e^A$ 相對於 $v$ 的特徵值
+- $\mbox{det}(e^A) = e^{tr(A)}$
+- 若 $A$ 可對角化成 $D$，則 $e^A = P\ e^DP^{-1}$ 為可逆矩陣
+- 若 $A$ 為實對稱矩陣，則 $e^A$ 為對稱且正定矩陣
+- 若 $B = PAP^{-1}$，則 $\displaystyle \lim_{k \to \infty}B^k = PDP^{-1}$，其中 $\displaystyle\lim_{k \to \infty}A^k = D$
+- 可對角矩陣的特徵值若滿足 $\mid\ \lambda\mid \leq 1$，則此對角矩陣會收斂
+
+**Clearly explaintion :**
+
+1. 假設存在可逆矩陣 $P$ 使得 $B = PAP^{-1}$，則 $e^B = \sum\frac{B^n}{n!} = \sum\frac{(PAP^{-1})^n}{n!} = \sum\frac{PA^nP^{-1}}{n!} = Pe^AP^{-1}$，故 $e^A \sim e^B$
+2. 假設 $Av = \lambda v$，則 $e^Av = \sum\frac{A^nv}{n!} = \sum \frac{\lambda^nv}{n!} = e^{\lambda}v$，故相對於 $v$ 特徵值為 $e^{\lambda}$
+3. 矩陣行列式為特徵值相乘，故得此結論
+4. $e^D$ 為正定矩陣，故特徵值皆為正數 $\implies \mbox{det}(e^D) \neq 0$
+5. 若 $A^T = A$，則 $(e^A)^T = \sum \frac{(A^T)^n}{n!} = \sum \frac{A^n}{n!} = e^A$，且有特徵值 $e^{\lambda_i} \geq 0$，故 $e^A$ 為對稱正定矩陣
+
+
+
+
+
