@@ -1,3 +1,6 @@
+tbrain
+kaggle
+kaust
 introduction-to-kriging
 assumption
 blue-best-linear-unbiased-estimator

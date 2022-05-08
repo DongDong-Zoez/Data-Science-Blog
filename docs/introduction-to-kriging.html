@@ -149,6 +149,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#smarter-than-you-think"><i class="fa fa-check"></i>Smarter than you think</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#真正意義上的變強"><i class="fa fa-check"></i>真正意義上的變強</a></li>
 </ul></li>
+<li class="chapter" data-level="0.1" data-path="index.html"><a href="index.html#tbrain"><i class="fa fa-check"></i><b>0.1</b> TBrain</a></li>
+<li class="chapter" data-level="0.2" data-path="index.html"><a href="index.html#kaggle"><i class="fa fa-check"></i><b>0.2</b> Kaggle</a></li>
+<li class="chapter" data-level="0.3" data-path="index.html"><a href="index.html#kaust"><i class="fa fa-check"></i><b>0.3</b> KAUST</a></li>
 </ul></li>
 <li class="chapter" data-level="1" data-path="introduction-to-kriging.html"><a href="introduction-to-kriging.html"><i class="fa fa-check"></i><b>1</b> Introduction to Kriging</a>
 <ul>
@@ -275,21 +278,26 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="introduction-to-kriging" class="section level1 hasAnchor" number="1">
 <h1><span class="header-section-number">Chapter 1</span> Introduction to Kriging<a href="introduction-to-kriging.html#introduction-to-kriging" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p>克里金法(Kriging)是一種用於空間資料的插值方法，通常視為高斯過程回歸或者 BLUP。</p>
+<p>克里金法(Kriging)是一種用於空間資料的插值方法，通常視為高斯過程回歸或者
+BLUP。</p>
 <div id="assumption" class="section level2 hasAnchor" number="1.1">
 <h2><span class="header-section-number">1.1</span> Assumption<a href="introduction-to-kriging.html#assumption" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>固有平穩過程 (intrinsically stationary process)</p>
 <ul>
-<li>數學期望與地理位置無關，即觀察任一小區域他的屬性應當相同 (constant mean or variance)</li>
-<li>半方差函數只與距離有關，即觀察任一小區域他的 Variogram 應當相同 (constant variogram)</li>
+<li>數學期望與地理位置無關，即觀察任一小區域他的屬性應當相同 (constant
+mean or variance)</li>
+<li>半方差函數只與距離有關，即觀察任一小區域他的 Variogram 應當相同
+(constant variogram)</li>
 </ul>
 <div class="info">
-<p>若未滿足假設(可由 Voronoi 圖檢驗)，可以對資料做轉換 (log transformation of squared)</p>
+<p>若未滿足假設(可由 Voronoi 圖檢驗)，可以對資料做轉換 (log transformation
+of squared)</p>
 </div>
 <div id="pros-and-cons" class="section level3 unnumbered hasAnchor">
 <h3>Pros and cons<a href="introduction-to-kriging.html#pros-and-cons" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <ul>
-<li>Pros : kriging model 告訴我們感興趣的空間特徵均值，且是最佳無偏 (BLUP)，並且可以估計誤差範圍</li>
+<li>Pros : kriging model 告訴我們感興趣的空間特徵均值，且是最佳無偏
+(BLUP)，並且可以估計誤差範圍</li>
 <li>Cons : 每當你要重新估計其他區域的資料，你的線性系統要被完全更新</li>
 </ul>
 </div>
@@ -307,20 +315,24 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="blue-best-linear-unbiased-estimator" class="section level2 hasAnchor" number="1.2">
 <h2><span class="header-section-number">1.2</span> BLUE (Best Linear Unbiased Estimator)<a href="introduction-to-kriging.html#blue-best-linear-unbiased-estimator" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>通常我們稱克里金法為最佳無偏線性預測(BLUP) :<br />
-* <strong>Best :</strong> 最小變方 (最小方差)
-* <strong>Linear :</strong> 估計值為觀測值的線性組合
-* <strong>Unbiased :</strong> 估計值的期望值等於真值</p>
+* <strong>Best :</strong> 最小變方 (最小方差) * <strong>Linear :</strong>
+估計值為觀測值的線性組合 * <strong>Unbiased :</strong> 估計值的期望值等於真值</p>
 <div id="普通克里金-ok-oridnary-kriging" class="section level3 hasAnchor" number="1.2.1">
 <h3><span class="header-section-number">1.2.1</span> 普通克里金 (OK Oridnary Kriging)<a href="introduction-to-kriging.html#普通克里金-ok-oridnary-kriging" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>我們相信空間資料與地理位置具有相關性，對於未知的某個空間資訊<span class="math inline">\(Y_0\)</span>，我們透過觀測其附近 <span class="math inline">\(n\)</span> 個位置 <span class="math inline">\(s_1,\cdots,s_n\)</span> 的 <span class="math inline">\(n\)</span> 個空間資訊 <span class="math inline">\(Y\)</span> 來線性組合估計 <span class="math inline">\(Y_0\)</span>，及以下表述 :
-<span class="math display">\[
+<p>我們相信空間資料與地理位置具有相關性，對於未知的某個空間資訊<span class="math inline">\(Y_0\)</span>，我們透過觀測其附近
+<span class="math inline">\(n\)</span> 個位置 <span class="math inline">\(s_1,\cdots,s_n\)</span> 的 <span class="math inline">\(n\)</span> 個空間資訊 <span class="math inline">\(Y\)</span> 來線性組合估計
+<span class="math inline">\(Y_0\)</span>，及以下表述 : <span class="math display">\[
 \hat Y(s_0) = \sum_{i=1}^n\lambda_iY(s_i) \tag 1
 \]</span></p>
-<p>現在我們只要找出權重係數 <span class="math inline">\(\lambda_i\)</span> 就能解決問題了!，為了滿足無偏的性質，<strong>普通克里金(Oridnary Kriging)</strong> 假設空間資訊在每一個地理位置都有相同的相同期望值 (constant unknown mean)，即<strong>數學期望值與空間位置無關</strong></p>
+<p>現在我們只要找出權重係數 <span class="math inline">\(\lambda_i\)</span>
+就能解決問題了!，為了滿足無偏的性質，<strong>普通克里金(Oridnary Kriging)</strong>
+假設空間資訊在每一個地理位置都有相同的相同期望值 (constant unknown
+mean)，即<strong>數學期望值與空間位置無關</strong></p>
 <p><span class="math display">\[
 Y(\mathbf{s}) = \mu + \delta(\mathbf{s})\tag 2
 \]</span></p>
-<p>其中 <span class="math inline">\(E(Y) = \mu\)</span> 且 <span class="math inline">\(\delta\)</span> (平均為0的固有平穩過程) 為地理位置 <span class="math inline">\(\mathbf{s}\)</span>，<span class="math inline">\(Y\)</span> 與 <span class="math inline">\(\hat Y\)</span> 的誤差</p>
+<p>其中 <span class="math inline">\(E(Y) = \mu\)</span> 且 <span class="math inline">\(\delta\)</span> (平均為0的固有平穩過程) 為地理位置
+<span class="math inline">\(\mathbf{s}\)</span>，<span class="math inline">\(Y\)</span> 與 <span class="math inline">\(\hat Y\)</span> 的誤差</p>
 <p><span class="math display">\[
 E(\hat Y(s_0)) = \mu = \mu\sum\lambda_i \iff \sum \lambda_i = 1 \tag 3
 \]</span></p>
@@ -329,7 +341,8 @@ E(\hat Y(s_0)) = \mu = \mu\sum\lambda_i \iff \sum \lambda_i = 1 \tag 3
 \arg\min_\lambda E(||\hat Y(s_0) - Y(s_0)||^2) \iff \arg\min_\lambda \frac{1}{2}E(||\sum_{i=1}^n\lambda_iY(s_i) -Y(s_0)||^2) \\
 \mbox{subject to } \sum_{i=1}^n\lambda_i = 1 \tag 4
 \]</span></p>
-<p>利用拉格朗日乘數 <span class="math inline">\(L(\lambda_1,\cdots,\lambda_n,\phi)\)</span> 可得，詳見 <a href="http://www1.mate.polimi.it/~bonavent/Homepage_Luca_file/lezkrig005.pdf">克里金法原理與推導</a></p>
+<p>利用拉格朗日乘數 <span class="math inline">\(L(\lambda_1,\cdots,\lambda_n,\phi)\)</span> 可得，詳見
+<a href="http://www1.mate.polimi.it/~bonavent/Homepage_Luca_file/lezkrig005.pdf">克里金法原理與推導</a></p>
 <p><span class="math display">\[
 \begin{bmatrix}
 r_{11}&amp;r_{12}&amp;\cdots&amp;r_{1n}&amp;1\\ r_{21}&amp;r_{22}&amp;\cdots&amp;r_{2n}&amp;1\\
@@ -337,7 +350,8 @@ r_{11}&amp;r_{12}&amp;\cdots&amp;r_{1n}&amp;1\\ r_{21}&amp;r_{22}&amp;\cdots&amp
 r_{n1}&amp;r_{n2}&amp;\cdots&amp;r_{nn}&amp;1\\1&amp;1&amp;\cdots&amp;1&amp;0\end{bmatrix}
 \begin{bmatrix} \lambda_1\\ \lambda_2\\\cdots\\\lambda_n\\-\phi\end{bmatrix}=\begin{bmatrix} r_{1o}\\ r_{2o}\\\cdots\\r_{no}\\1\end{bmatrix} \tag 5
 \]</span></p>
-<p>其中 <span class="math inline">\(r_{ij}\)</span> 為半方差函數，<span class="math inline">\(\phi\)</span> 為拉格朗日的限制參數，做完逆矩陣即可得權重係數</p>
+<p>其中 <span class="math inline">\(r_{ij}\)</span> 為半方差函數，<span class="math inline">\(\phi\)</span>
+為拉格朗日的限制參數，做完逆矩陣即可得權重係數</p>
 <p><span class="math display">\[
 \begin{bmatrix} \lambda_1\\ \lambda_2\\\cdots\\\lambda_n\\-\phi\end{bmatrix}=
 \begin{bmatrix}
@@ -346,22 +360,29 @@ r_{11}&amp;r_{12}&amp;\cdots&amp;r_{1n}&amp;1\\ r_{21}&amp;r_{22}&amp;\cdots&amp
 r_{n1}&amp;r_{n2}&amp;\cdots&amp;r_{nn}&amp;1\\1&amp;1&amp;\cdots&amp;1&amp;0\end{bmatrix}^{-1}
 \begin{bmatrix} r_{1o}\\ r_{2o}\\\cdots\\r_{no}\\1\end{bmatrix} \tag 6
 \]</span></p>
-<p>我們計做 <span class="math inline">\(\lambda_O = \Gamma_O^{-1}\gamma_O\)</span>，帶回原式我們可以估得誤差的方差為 <span class="math inline">\(\sigma^2_O =\lambda_O^\top\gamma_O= \gamma_O^\top \Gamma_O^{-1}\gamma_O\)</span></p>
+<p>我們計做
+<span class="math inline">\(\lambda_O = \Gamma_O^{-1}\gamma_O\)</span>，帶回原式我們可以估得誤差的方差為
+<span class="math inline">\(\sigma^2_O =\lambda_O^\top\gamma_O= \gamma_O^\top \Gamma_O^{-1}\gamma_O\)</span></p>
 </div>
 <div id="半方差圖-variogram" class="section level3 hasAnchor" number="1.2.2">
 <h3><span class="header-section-number">1.2.2</span> 半方差圖 (Variogram)<a href="introduction-to-kriging.html#半方差圖-variogram" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>半方差的定義為 <span class="math inline">\(r_{ij} = \frac{1}{2}E[(Y(s_i) - Y(s_j))^2]\)</span>，根據我們的假設，我們希望地理位置鄰近的地方具有相似的空間資訊，即 <span class="math inline">\(\mbox{Distance}\rightarrow 0 \implies r_{ij} \rightarrow 0\)</span></p>
+<p>半方差的定義為
+<span class="math inline">\(r_{ij} = \frac{1}{2}E[(Y(s_i) - Y(s_j))^2]\)</span>，根據我們的假設，我們希望地理位置鄰近的地方具有相似的空間資訊，即
+<span class="math inline">\(\mbox{Distance}\rightarrow 0 \implies r_{ij} \rightarrow 0\)</span></p>
 <p><img src="https://i.imgur.com/PWIf1LT.png" /></p>
 <p>半方差圖其中幾個重要的術語</p>
 <ul>
-<li><strong>Data :</strong> 即 <span class="math inline">\(\frac{1}{2}(Y(s_i) - Y(s_j))^2\)</span>，為上圖中紅色標記點</li>
-<li><strong>Variogram model :</strong> 即是 Data 的擬合曲線，常用“線性”、“高斯”、“球面”、“指數”等逼近</li>
-<li><strong>Nugget :</strong> 用 <span class="math inline">\(C_o\)</span> 表示，為距離最近兩點的半方差值
+<li><p><strong>Data :</strong> 即 <span class="math inline">\(\frac{1}{2}(Y(s_i) - Y(s_j))^2\)</span>，為上圖中紅色標記點</p></li>
+<li><p><strong>Variogram model :</strong> 即是 Data
+的擬合曲線，常用“線性”、“高斯”、“球面”、“指數”等逼近</p></li>
+<li><p><strong>Nugget :</strong> 用 <span class="math inline">\(C_o\)</span> 表示，為距離最近兩點的半方差值</p>
 <ul>
 <li>越大的 <span class="math inline">\(C_o\)</span> 表示空間測量誤差越大</li>
 </ul></li>
-<li><strong>Sill :</strong> 用 <span class="math inline">\(C_o + C\)</span> 表示，當半方差函數達到一個穩定態時，該半方差值稱為 Sill</li>
-<li><strong>Range :</strong> 用 <span class="math inline">\(A_o\)</span> 表示，達到 Sill 的距離，表示空間相關性的作用範圍
+<li><p><strong>Sill :</strong> 用 <span class="math inline">\(C_o + C\)</span>
+表示，當半方差函數達到一個穩定態時，該半方差值稱為 Sill</p></li>
+<li><p><strong>Range :</strong> 用 <span class="math inline">\(A_o\)</span> 表示，達到 Sill
+的距離，表示空間相關性的作用範圍</p>
 <ul>
 <li>超過 <span class="math inline">\(A_o\)</span> 我們稱空間相關性不存在，即不能使用內插法</li>
 </ul></li>
@@ -369,15 +390,12 @@ r_{n1}&amp;r_{n2}&amp;\cdots&amp;r_{nn}&amp;1\\1&amp;1&amp;\cdots&amp;1&amp;0\en
 </div>
 <div id="簡單克里金-sk-simple-kriging" class="section level3 hasAnchor" number="1.2.3">
 <h3><span class="header-section-number">1.2.3</span> 簡單克里金 (SK Simple Kriging)<a href="introduction-to-kriging.html#簡單克里金-sk-simple-kriging" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>不同於普通克里金法，簡單克里金假設未知點的偏差是由已知點的偏差線性組合(with known mean)
-<span class="math display">\[
+<p>不同於普通克里金法，簡單克里金假設未知點的偏差是由已知點的偏差線性組合(with
+known mean) <span class="math display">\[
 \hat Y(s_0) - \mu = \sum_{i=1}^n\lambda_i(Y(s_i) - \mu)
-\]</span>
-神奇的是，這個條件會自動滿足無偏性
-<span class="math display">\[
+\]</span> 神奇的是，這個條件會自動滿足無偏性 <span class="math display">\[
 E(\hat Y_0) = E(\mu + \sum_{i=1}^n\lambda_i(Y(s_i) - \mu)) = \mu
-\]</span>
-所以它不需要普通克里金法的限制 <span class="math inline">\((3)\)</span></p>
+\]</span> 所以它不需要普通克里金法的限制 <span class="math inline">\((3)\)</span></p>
 </div>
 <div id="泛克里金-uk-universal-kriging" class="section level3 hasAnchor" number="1.2.4">
 <h3><span class="header-section-number">1.2.4</span> 泛克里金 (UK Universal kriging)<a href="introduction-to-kriging.html#泛克里金-uk-universal-kriging" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -385,24 +403,23 @@ E(\hat Y_0) = E(\mu + \sum_{i=1}^n\lambda_i(Y(s_i) - \mu)) = \mu
 <p><span class="math display">\[
 Y(\mathbf{s}) = \sum_{i=1}^p\beta_if_i(\mathbf{s}) + \delta(\mathbf{s})
 \]</span></p>
-<p>注意到如果取 <span class="math inline">\(f_i = 1,p=1\)</span> 則與普通克里金一樣，為了簡便說明，給出以下符號</p>
+<p>注意到如果取 <span class="math inline">\(f_i = 1,p=1\)</span>
+則與普通克里金一樣，為了簡便說明，給出以下符號</p>
 <p><span class="math display">\[
 \mathbf{X} = \begin{bmatrix}f_1(s_1)&amp;\cdots&amp;f_p(s_1)\\f_1(s_2)&amp;\cdots&amp;f_p(s_2)\\\vdots&amp;\cdots&amp;\vdots\\f_1(s_n)&amp;\cdots&amp;f_p(s_n)\end{bmatrix},\mathbf{\beta} = \begin{bmatrix}\beta_1\\\vdots\\\beta_p\end{bmatrix} \\
 \mathbf{\delta(s)} = \begin{bmatrix}\delta(s_1)\\\vdots\\\delta(s_n)\end{bmatrix}, \mathbf{Y} = \begin{bmatrix}Y(s_1)\\\vdots\\Y(s_n)\end{bmatrix}
 \]</span></p>
-<p>則有 <span class="math inline">\(\bf Y = X\beta + \delta\)</span>，同樣地，為了滿足無偏性，我們有以下限制條件
-<span class="math display">\[
+<p>則有
+<span class="math inline">\(\bf Y = X\beta + \delta\)</span>，同樣地，為了滿足無偏性，我們有以下限制條件 <span class="math display">\[
 E(Y) = \sum_{i=1}^p\beta_if_i(\mathbf{s}) \\
 E(\hat Y(s_0)) = E(\sum_{i=1}^n\lambda_iY(s_i)) = \sum_{i=1}^n\lambda_i\sum_{j=1}^p\beta_jf_j(s_i) = \sum_{i=1}^p\beta_if_i(\mathbf{s_0}) \\
 f_j(\mathbf{s}) = \sum_{i=1}^n\lambda_if_j(s_i) \mbox{ for } j = 1,\cdots,p \\
 \sum_{i=1}^n\lambda_i = 1
-\]</span>
-再根據拉格朗日乘數求解方程，詳見 <a href="http://www1.mate.polimi.it/~bonavent/Homepage_Luca_file/lezkrig005.pdf">克里金法原理與推導</a>
+\]</span> 再根據拉格朗日乘數求解方程，詳見
+<a href="http://www1.mate.polimi.it/~bonavent/Homepage_Luca_file/lezkrig005.pdf">克里金法原理與推導</a>
 <span class="math display">\[
 L(\lambda_1,\cdots,\lambda_n,m_1,\cdots,m_p) = E[||\hat Y(s_0) - Y(s_0)||^2] - 2m_0(\sum_{i=1}^n\lambda_i-1) - 2\sum_{j=1}^pm_j(\sum_{i=1}^n\lambda_if_j(s_i) - f_j(s_0))
-\]</span>
-即有
-<span class="math display">\[
+\]</span> 即有 <span class="math display">\[
 \begin{bmatrix}
 \lambda_1 \\
 \vdots \\
@@ -428,16 +445,20 @@ f_1(s_0) \\
 \vdots \\
 f_p(s_0)
 \end{bmatrix}
-\]</span>
-我們計做 <span class="math inline">\(\lambda_U = \Gamma_U^{-1}\gamma_U\)</span>，帶回原式我們可以估得誤差的方差為 <span class="math inline">\(\sigma^2_U =\lambda_U^\top\gamma_U= \gamma_U^\top \Gamma_U^{-1}\gamma_U\)</span></p>
-<p>更進一步，如果 <span class="math inline">\(Y\)</span> 的協方差矩陣 <span class="math inline">\(\Sigma\)</span> 已知，則根據廣義最小平方法，將空間資訊 <span class="math inline">\(Y\)</span> 投影到主成分空間使得誤差的斜方差矩陣沒有外部協方差，則有
-<span class="math display">\[
+\]</span> 我們計做
+<span class="math inline">\(\lambda_U = \Gamma_U^{-1}\gamma_U\)</span>，帶回原式我們可以估得誤差的方差為
+<span class="math inline">\(\sigma^2_U =\lambda_U^\top\gamma_U= \gamma_U^\top \Gamma_U^{-1}\gamma_U\)</span></p>
+<p>更進一步，如果 <span class="math inline">\(Y\)</span> 的協方差矩陣 <span class="math inline">\(\Sigma\)</span>
+已知，則根據廣義最小平方法，將空間資訊 <span class="math inline">\(Y\)</span>
+投影到主成分空間使得誤差的斜方差矩陣沒有外部協方差，則有 <span class="math display">\[
 \hat\beta_{gls} = (X^\top\Sigma^{-1} X)^{-1}X^\top\Sigma^{-1} Y
 \]</span></p>
 </div>
 <div id="協同克里金-ck-co-kriging" class="section level3 hasAnchor" number="1.2.5">
 <h3><span class="header-section-number">1.2.5</span> 協同克里金 (CK Co-Kriging)<a href="introduction-to-kriging.html#協同克里金-ck-co-kriging" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>協同克里金是克里金法在多變量分析的衍生，協同克里金允許多個空間資訊 <span class="math inline">\(Y_1,\cdots,Y_K\)</span> 分別在地理位置 <span class="math inline">\(\{s_1,\cdots,s_{n_k}\}, k=1,\cdots,K\)</span> 被觀測到，則</p>
+<p>協同克里金是克里金法在多變量分析的衍生，協同克里金允許多個空間資訊
+<span class="math inline">\(Y_1,\cdots,Y_K\)</span> 分別在地理位置 <span class="math inline">\(\{s_1,\cdots,s_{n_k}\}, k=1,\cdots,K\)</span>
+被觀測到，則</p>
 <p><span class="math display">\[
 \hat Y(s_0) = \sum_{k=1}^K\sum_{i=1}^{n_k}\lambda_{k_i}Y_k(s_i)
 \]</span></p>
@@ -448,7 +469,8 @@ f_p(s_0)
 <p><span class="math display">\[
 \hat Y(s_0) = \sum_{i=1}^nf_i(Y(s_i))
 \]</span></p>
-<p>如果 <span class="math inline">\(f_i\)</span> 為指示函數，則析取克里金又稱為指示克里金 (IK Indicator Kriging)</p>
+<p>如果 <span class="math inline">\(f_i\)</span> 為指示函數，則析取克里金又稱為指示克里金 (IK Indicator
+Kriging)</p>
 </div>
 </div>
 <div id="r-語言實作" class="section level2 hasAnchor" number="1.3">

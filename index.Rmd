@@ -60,5 +60,30 @@ ps 大家可能不想看無聊的陳述，我們直接看看故事吧!!
 每個禮拜都有漲跌兩種情況，連續十個禮拜就有 1024 種可能的排列組合，換句話說，這家股市公司只要將這十個禮拜 1024 種可能寄給 1024 個人，每個人收到的信件內容都不一樣，則根據雞兔同籠的原理，必然有一個倒楣鬼收到的預測是完全正確的。
 </details>
 
+## TBrain
 
+參加過的 TBrain 競賽 :
+
+- [蘭花種類辨識](https://tbrain.trendmicro.com.tw/Competitions/Details/20)
+
+此區域仍然在施工! 
+
+## Kaggle
+
+參加過的 Kaggle 競賽 : 
+
+- [Tabular Palyground 2021/08](https://www.kaggle.com/competitions/tabular-playground-series-aug-2021)
+- [Tabular Playground 2021/09](https://www.kaggle.com/competitions/tabular-playground-series-sep-2021)
+
+此區域仍然在施工! 
+
+## KAUST
+
+我參加了 KAUST 大學舉辦的空間資料大數據預測競賽，以下是 Kaggle 成績
+
+- 1a: Top 3
+- 2a: Top 1
+- 2b: Top 1
+
+此區域仍然在施工! 
 
