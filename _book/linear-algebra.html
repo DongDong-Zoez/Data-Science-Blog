@@ -1,0 +1,907 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 2 Linear Algebra | A Minimal Book Example</title>
+  <meta name="description" content="<p>This is a minimal example of using the bookdown package to write a book.
+The HTML output format for this example is bookdown::gitbook,
+set in the _output.yml file.</p>" />
+  <meta name="generator" content="bookdown 0.26 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 2 Linear Algebra | A Minimal Book Example" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="<p>This is a minimal example of using the bookdown package to write a book.
+The HTML output format for this example is bookdown::gitbook,
+set in the _output.yml file.</p>" />
+  <meta name="github-repo" content="rstudio/bookdown-demo" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 2 Linear Algebra | A Minimal Book Example" />
+  
+  <meta name="twitter:description" content="<p>This is a minimal example of using the bookdown package to write a book.
+The HTML output format for this example is bookdown::gitbook,
+set in the _output.yml file.</p>" />
+  
+
+<meta name="author" content="John Doe" />
+
+
+<meta name="date" content="2022-05-07" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="introduction-to-kriging.html"/>
+<link rel="next" href="基礎微積分.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">A Minimal Book Example</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="introduction-to-kriging.html"><a href="introduction-to-kriging.html"><i class="fa fa-check"></i><b>1</b> Introduction to Kriging</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="introduction-to-kriging.html"><a href="introduction-to-kriging.html#assumption"><i class="fa fa-check"></i><b>1.1</b> Assumption</a>
+<ul>
+<li class="chapter" data-level="" data-path="introduction-to-kriging.html"><a href="introduction-to-kriging.html#pros-and-cons"><i class="fa fa-check"></i>Pros and cons</a></li>
+<li class="chapter" data-level="" data-path="introduction-to-kriging.html"><a href="introduction-to-kriging.html#relation-to-gpr"><i class="fa fa-check"></i>Relation to GPR</a></li>
+</ul></li>
+<li class="chapter" data-level="1.2" data-path="introduction-to-kriging.html"><a href="introduction-to-kriging.html#blue-best-linear-unbiased-estimator"><i class="fa fa-check"></i><b>1.2</b> BLUE (Best Linear Unbiased Estimator)</a>
+<ul>
+<li class="chapter" data-level="1.2.1" data-path="introduction-to-kriging.html"><a href="introduction-to-kriging.html#普通克里金-ok-oridnary-kriging"><i class="fa fa-check"></i><b>1.2.1</b> 普通克里金 (OK Oridnary Kriging)</a></li>
+<li class="chapter" data-level="1.2.2" data-path="introduction-to-kriging.html"><a href="introduction-to-kriging.html#半方差圖-variogram"><i class="fa fa-check"></i><b>1.2.2</b> 半方差圖 (Variogram)</a></li>
+<li class="chapter" data-level="1.2.3" data-path="introduction-to-kriging.html"><a href="introduction-to-kriging.html#簡單克里金-sk-simple-kriging"><i class="fa fa-check"></i><b>1.2.3</b> 簡單克里金 (SK Simple Kriging)</a></li>
+<li class="chapter" data-level="1.2.4" data-path="introduction-to-kriging.html"><a href="introduction-to-kriging.html#泛克里金-uk-universal-kriging"><i class="fa fa-check"></i><b>1.2.4</b> 泛克里金 (UK Universal kriging)</a></li>
+<li class="chapter" data-level="1.2.5" data-path="introduction-to-kriging.html"><a href="introduction-to-kriging.html#協同克里金-ck-co-kriging"><i class="fa fa-check"></i><b>1.2.5</b> 協同克里金 (CK Co-Kriging)</a></li>
+<li class="chapter" data-level="1.2.6" data-path="introduction-to-kriging.html"><a href="introduction-to-kriging.html#析取克里金-dk-disjunctive-kriging"><i class="fa fa-check"></i><b>1.2.6</b> 析取克里金 (DK Disjunctive Kriging)</a></li>
+</ul></li>
+<li class="chapter" data-level="1.3" data-path="introduction-to-kriging.html"><a href="introduction-to-kriging.html#r-語言實作"><i class="fa fa-check"></i><b>1.3</b> R 語言實作</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="linear-algebra.html"><a href="linear-algebra.html"><i class="fa fa-check"></i><b>2</b> Linear Algebra</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="linear-algebra.html"><a href="linear-algebra.html#vector-space-向量空間"><i class="fa fa-check"></i><b>2.1</b> Vector Space (向量空間)</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="linear-algebra.html"><a href="linear-algebra.html#subspacce-子空間"><i class="fa fa-check"></i><b>2.1.1</b> Subspacce (子空間)</a></li>
+<li class="chapter" data-level="2.1.2" data-path="linear-algebra.html"><a href="linear-algebra.html#sum-space-和空間"><i class="fa fa-check"></i><b>2.1.2</b> Sum space (和空間)</a></li>
+<li class="chapter" data-level="2.1.3" data-path="linear-algebra.html"><a href="linear-algebra.html#four-basis-spaces-四大基本子空間"><i class="fa fa-check"></i><b>2.1.3</b> Four Basis Spaces (四大基本子空間)</a></li>
+<li class="chapter" data-level="2.1.4" data-path="linear-algebra.html"><a href="linear-algebra.html#solve-linear-system-求解線性系統"><i class="fa fa-check"></i><b>2.1.4</b> Solve Linear System (求解線性系統)</a></li>
+<li class="chapter" data-level="2.1.5" data-path="linear-algebra.html"><a href="linear-algebra.html#線性系統求解演算法"><i class="fa fa-check"></i><b>2.1.5</b> 線性系統求解演算法</a></li>
+<li class="chapter" data-level="2.1.6" data-path="linear-algebra.html"><a href="linear-algebra.html#spanning-set-and-generating-set-生成集與獨立集"><i class="fa fa-check"></i><b>2.1.6</b> Spanning Set and Generating Set (生成集與獨立集)</a></li>
+<li class="chapter" data-level="2.1.7" data-path="linear-algebra.html"><a href="linear-algebra.html#和空間的生成集"><i class="fa fa-check"></i><b>2.1.7</b> 和空間的生成集</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="linear-algebra.html"><a href="linear-algebra.html#linear-independent-and-linear-dependent-線性獨立與線性相依"><i class="fa fa-check"></i><b>2.2</b> Linear independent and Linear dependent (線性獨立與線性相依)</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="linear-algebra.html"><a href="linear-algebra.html#線性獨立判別法"><i class="fa fa-check"></i><b>2.2.1</b> 線性獨立判別法</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="linear-algebra.html"><a href="linear-algebra.html#basis-and-space-property-基底與空間特性"><i class="fa fa-check"></i><b>2.3</b> Basis and Space Property (基底與空間特性)</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="linear-algebra.html"><a href="linear-algebra.html#四大子空間的基底"><i class="fa fa-check"></i><b>2.3.1</b> 四大子空間的基底</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="linear-algebra.html"><a href="linear-algebra.html#linear-transformation-線性映射"><i class="fa fa-check"></i><b>2.4</b> Linear transformation (線性映射)</a></li>
+<li class="chapter" data-level="2.5" data-path="linear-algebra.html"><a href="linear-algebra.html#rank-of-a-matrix-矩陣的秩"><i class="fa fa-check"></i><b>2.5</b> Rank of a Matrix (矩陣的秩)</a>
+<ul>
+<li class="chapter" data-level="2.5.1" data-path="linear-algebra.html"><a href="linear-algebra.html#sylvester-theorem-秩-零度定理"><i class="fa fa-check"></i><b>2.5.1</b> Sylvester Theorem (秩 零度定理)</a></li>
+<li class="chapter" data-level="2.5.2" data-path="linear-algebra.html"><a href="linear-algebra.html#property-of-the-rank-秩的特性"><i class="fa fa-check"></i><b>2.5.2</b> Property of the Rank (秩的特性)</a></li>
+</ul></li>
+<li class="chapter" data-level="2.6" data-path="linear-algebra.html"><a href="linear-algebra.html#direct-sum-and-projection-直和與投影"><i class="fa fa-check"></i><b>2.6</b> Direct Sum and Projection (直和與投影)</a>
+<ul>
+<li class="chapter" data-level="2.6.1" data-path="linear-algebra.html"><a href="linear-algebra.html#projection-matrix-投影矩陣"><i class="fa fa-check"></i><b>2.6.1</b> Projection Matrix (投影矩陣)</a></li>
+<li class="chapter" data-level="2.6.2" data-path="linear-algebra.html"><a href="linear-algebra.html#orthogonal-projection-正交投影"><i class="fa fa-check"></i><b>2.6.2</b> Orthogonal Projection (正交投影)</a></li>
+</ul></li>
+<li class="chapter" data-level="2.7" data-path="linear-algebra.html"><a href="linear-algebra.html#change-basis-and-coordinates-matrix-基底變換與基底變換矩陣"><i class="fa fa-check"></i><b>2.7</b> Change Basis and Coordinates Matrix (基底變換與基底變換矩陣)</a></li>
+<li class="chapter" data-level="2.8" data-path="linear-algebra.html"><a href="linear-algebra.html#線性變換矩陣表示法"><i class="fa fa-check"></i><b>2.8</b> 線性變換矩陣表示法</a>
+<ul>
+<li class="chapter" data-level="2.8.1" data-path="linear-algebra.html"><a href="linear-algebra.html#similarity-of-the-square-matrix-方陣的相似"><i class="fa fa-check"></i><b>2.8.1</b> Similarity of the Square Matrix (方陣的相似)</a></li>
+</ul></li>
+<li class="chapter" data-level="2.9" data-path="linear-algebra.html"><a href="linear-algebra.html#eigenvalue-and-eigenvetor-特徵值與特徵向量"><i class="fa fa-check"></i><b>2.9</b> Eigenvalue and Eigenvetor (特徵值與特徵向量)</a>
+<ul>
+<li class="chapter" data-level="2.9.1" data-path="linear-algebra.html"><a href="linear-algebra.html#characteristic-polynomial-特徵多項式"><i class="fa fa-check"></i><b>2.9.1</b> characteristic polynomial (特徵多項式)</a></li>
+<li class="chapter" data-level="2.9.2" data-path="linear-algebra.html"><a href="linear-algebra.html#eigenspace-and-multiplicity-特徵空間和重數"><i class="fa fa-check"></i><b>2.9.2</b> Eigenspace and multiplicity (特徵空間和重數)</a></li>
+</ul></li>
+<li class="chapter" data-level="2.10" data-path="linear-algebra.html"><a href="linear-algebra.html#diagonalizable-可對角化"><i class="fa fa-check"></i><b>2.10</b> Diagonalizable (可對角化)</a></li>
+<li class="chapter" data-level="2.11" data-path="linear-algebra.html"><a href="linear-algebra.html#eigen-value-decomposition-特徵值分解"><i class="fa fa-check"></i><b>2.11</b> Eigen Value Decomposition (特徵值分解)</a>
+<ul>
+<li class="chapter" data-level="2.11.1" data-path="linear-algebra.html"><a href="linear-algebra.html#simulltaneously-diagonalizable-同步對角化"><i class="fa fa-check"></i><b>2.11.1</b> Simulltaneously diagonalizable (同步對角化)</a></li>
+<li class="chapter" data-level="2.11.2" data-path="linear-algebra.html"><a href="linear-algebra.html#diagonalization-and-function-limit-對角化與函數極限"><i class="fa fa-check"></i><b>2.11.2</b> Diagonalization and function limit (對角化與函數極限)</a></li>
+<li class="chapter" data-level="2.11.3" data-path="linear-algebra.html"><a href="linear-algebra.html#simulltaneously-diagonalizable-同步對角化-1"><i class="fa fa-check"></i><b>2.11.3</b> Simulltaneously diagonalizable (同步對角化)</a></li>
+<li class="chapter" data-level="2.11.4" data-path="linear-algebra.html"><a href="linear-algebra.html#diagonalization-and-function-limit-對角化與函數極限-1"><i class="fa fa-check"></i><b>2.11.4</b> Diagonalization and function limit (對角化與函數極限)</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="基礎微積分.html"><a href="基礎微積分.html"><i class="fa fa-check"></i><b>3</b> 基礎微積分</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="基礎微積分.html"><a href="基礎微積分.html#數列的極限"><i class="fa fa-check"></i><b>3.1</b> 數列的極限</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="基礎微積分.html"><a href="基礎微積分.html#夾擠定理"><i class="fa fa-check"></i><b>3.1.1</b> 夾擠定理</a></li>
+<li class="chapter" data-level="3.1.2" data-path="基礎微積分.html"><a href="基礎微積分.html#比較定理"><i class="fa fa-check"></i><b>3.1.2</b> 比較定理</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="基礎微積分.html"><a href="基礎微積分.html#級數"><i class="fa fa-check"></i><b>3.2</b> 級數</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="基礎微積分.html"><a href="基礎微積分.html#數列收斂審歛法"><i class="fa fa-check"></i><b>3.2.1</b> 數列收斂審歛法</a></li>
+<li class="chapter" data-level="3.2.2" data-path="基礎微積分.html"><a href="基礎微積分.html#特殊級數"><i class="fa fa-check"></i><b>3.2.2</b> 特殊級數</a></li>
+<li class="chapter" data-level="3.2.3" data-path="基礎微積分.html"><a href="基礎微積分.html#交錯級數"><i class="fa fa-check"></i><b>3.2.3</b> 交錯級數</a></li>
+<li class="chapter" data-level="3.2.4" data-path="基礎微積分.html"><a href="基礎微積分.html#冪級數"><i class="fa fa-check"></i><b>3.2.4</b> 冪級數</a></li>
+<li class="chapter" data-level="3.2.5" data-path="基礎微積分.html"><a href="基礎微積分.html#收斂半徑"><i class="fa fa-check"></i><b>3.2.5</b> 收斂半徑</a></li>
+<li class="chapter" data-level="3.2.6" data-path="基礎微積分.html"><a href="基礎微積分.html#泰勒展開式定理"><i class="fa fa-check"></i><b>3.2.6</b> 泰勒展開式定理</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="基礎微積分.html"><a href="基礎微積分.html#純量場"><i class="fa fa-check"></i><b>3.3</b> 純量場</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="基礎微積分.html"><a href="基礎微積分.html#方向導數"><i class="fa fa-check"></i><b>3.3.1</b> 方向導數</a></li>
+<li class="chapter" data-level="3.3.2" data-path="基礎微積分.html"><a href="基礎微積分.html#梯度"><i class="fa fa-check"></i><b>3.3.2</b> 梯度</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="基礎微積分.html"><a href="基礎微積分.html#向量場"><i class="fa fa-check"></i><b>3.4</b> 向量場</a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="基礎微積分.html"><a href="基礎微積分.html#散度"><i class="fa fa-check"></i><b>3.4.1</b> 散度</a></li>
+<li class="chapter" data-level="3.4.2" data-path="基礎微積分.html"><a href="基礎微積分.html#旋度"><i class="fa fa-check"></i><b>3.4.2</b> 旋度</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="基礎微積分.html"><a href="基礎微積分.html#線積分"><i class="fa fa-check"></i><b>3.5</b> 線積分</a>
+<ul>
+<li class="chapter" data-level="3.5.1" data-path="基礎微積分.html"><a href="基礎微積分.html#第一類線積分"><i class="fa fa-check"></i><b>3.5.1</b> 第一類線積分</a></li>
+<li class="chapter" data-level="3.5.2" data-path="基礎微積分.html"><a href="基礎微積分.html#第二類線積分"><i class="fa fa-check"></i><b>3.5.2</b> 第二類線積分</a></li>
+<li class="chapter" data-level="3.5.3" data-path="基礎微積分.html"><a href="基礎微積分.html#特殊曲線之擺縣"><i class="fa fa-check"></i><b>3.5.3</b> 特殊曲線之擺縣</a></li>
+<li class="chapter" data-level="3.5.4" data-path="基礎微積分.html"><a href="基礎微積分.html#與路徑無關的線積分"><i class="fa fa-check"></i><b>3.5.4</b> 與路徑無關的線積分</a></li>
+</ul></li>
+<li class="chapter" data-level="3.6" data-path="基礎微積分.html"><a href="基礎微積分.html#格林定理"><i class="fa fa-check"></i><b>3.6</b> 格林定理</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">A Minimal Book Example</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="linear-algebra" class="section level1 hasAnchor" number="2">
+<h1><span class="header-section-number">Chapter 2</span> Linear Algebra<a href="linear-algebra.html#linear-algebra" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="vector-space-向量空間" class="section level2 hasAnchor" number="2.1">
+<h2><span class="header-section-number">2.1</span> Vector Space (向量空間)<a href="linear-algebra.html#vector-space-向量空間" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>令 <span class="math inline">\(V\)</span> 為非空集合(元素為向量)，<span class="math inline">\(F\)</span> 為體(元素為純量)
+滿足以下八條規則稱 <span class="math inline">\((V,+,\cdot)\)</span> 為佈於 <span class="math inline">\(F\)</span> 的向量空間 :</p>
+<ol style="list-style-type: decimal">
+<li>向量加法結合律
+<span class="math inline">\(\forall\)</span> <span class="math inline">\(u,v,w \in V\)</span>, <span class="math inline">\((u + v) + w = u + (v + w)\)</span></li>
+<li>向量加法單位元素
+<span class="math inline">\(\exists\)</span> <span class="math inline">\(0 \in V\)</span> such that <span class="math inline">\(\forall\)</span> <span class="math inline">\(v \in V\)</span>, we have <span class="math inline">\(v+0 = 0+v = v\)</span></li>
+<li>向量加法反元素
+<span class="math inline">\(\forall\)</span> <span class="math inline">\(v \in V\)</span>, <span class="math inline">\(\exists -v \in V\)</span> such that <span class="math inline">\(v + (-v) = (-v) + v = 0\)</span></li>
+<li>向量加法交換律
+<span class="math inline">\(\forall\)</span> <span class="math inline">\(u,v \in V\)</span>, <span class="math inline">\(u+v = v+u\)</span></li>
+<li>純量乘法對向量加法有分配律
+<span class="math inline">\(\forall\)</span> <span class="math inline">\(\alpha \in F\)</span>, <span class="math inline">\(u,v \in V\)</span>, <span class="math inline">\(\alpha \cdot(u+v) = \alpha \cdot u + \alpha \cdot v\)</span></li>
+<li>純量乘法對純量加法有分配律
+<span class="math inline">\(\forall\)</span> <span class="math inline">\(\alpha, \beta \in F\)</span>, <span class="math inline">\(v \in V\)</span>, <span class="math inline">\((\alpha + \beta) \cdot v = \alpha \cdot v + \beta \cdot v\)</span></li>
+<li>純量乘法結合律
+<span class="math inline">\(\forall\)</span> <span class="math inline">\(\alpha, \beta \in F\)</span>, <span class="math inline">\(v \in V\)</span>, <span class="math inline">\((\alpha\beta) v = \alpha(\beta v)\)</span></li>
+<li>乘法單位元素
+<span class="math inline">\(\forall v \in V\)</span>, <span class="math inline">\(1 \cdot v = v\)</span></li>
+</ol>
+<p><strong>Note :</strong>
+- 向量空間必有零向量(非空)</p>
+<div id="subspacce-子空間" class="section level3 hasAnchor" number="2.1.1">
+<h3><span class="header-section-number">2.1.1</span> Subspacce (子空間)<a href="linear-algebra.html#subspacce-子空間" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>令 <span class="math inline">\(S\)</span> 為 <span class="math inline">\(V\)</span> 的非空子集，且佈於同一 <span class="math inline">\(F\)</span> 上，稱 <span class="math inline">\((S,+, \cdot)\)</span> 為 <span class="math inline">\((V,+,\cdot)\)</span> 的子空間</p>
+<p><strong>Note</strong> (令向量空間 <span class="math inline">\(W\)</span> 為向量空間 <span class="math inline">\(V\)</span> 的子空間) <strong>:</strong></p>
+<ul>
+<li><span class="math inline">\(\{0\}\)</span>, <span class="math inline">\(V\)</span> 皆為向量空間 <span class="math inline">\(V\)</span> 的顯然子空間(trivial subspace)</li>
+<li>歐式空間的子空間必然通過原點</li>
+<li>子空間有向量加法封閉性以及純量乘法封閉性
+<ul>
+<li><span class="math inline">\(\forall\)</span> <span class="math inline">\(u,v\in W\)</span>, <span class="math inline">\(\alpha \in F\)</span>, <span class="math inline">\(\alpha u +v \in W\)</span></li>
+</ul></li>
+<li><span class="math inline">\(0 \in W\)</span>        (常用來判斷是否為子空間)</li>
+<li>if <span class="math inline">\(v\in W\)</span>, then <span class="math inline">\(-v \in W\)</span> (常用來判斷是否為子空間)</li>
+<li>子空間交集仍為子空間</li>
+<li>子空間聯集為子空間，若且唯若子空間之間有包含關係</li>
+</ul>
+</div>
+<div id="sum-space-和空間" class="section level3 hasAnchor" number="2.1.2">
+<h3><span class="header-section-number">2.1.2</span> Sum space (和空間)<a href="linear-algebra.html#sum-space-和空間" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>假設 <span class="math inline">\(W_1, \cdots, W_k\)</span> 為 <span class="math inline">\(V\)</span> 的子空間，則 <span class="math inline">\(\displaystyle \sum_{i = 1}^k W_i := \{\sum_{i=1}^kv_i|v_i \in W_i, 1 \leq i \leq k\}\)</span> 稱為 <span class="math inline">\(W_1, \cdots, W_k\)</span> 的和空間</p>
+<p><strong>Note :</strong></p>
+<ul>
+<li>子空間的和空間仍為子空間</li>
+<li><span class="math inline">\(W_1\)</span> <span class="math inline">\(\cup\)</span> <span class="math inline">\(W_2\)</span> <span class="math inline">\(\subseteq\)</span> <span class="math inline">\(W_1 + W_2\)</span></li>
+<li><span class="math inline">\(W_1 + W_2\)</span> 是包含 <span class="math inline">\(W_1\)</span> <span class="math inline">\(\cup\)</span> <span class="math inline">\(W_2\)</span> 的最小子空間</li>
+</ul>
+</div>
+<div id="four-basis-spaces-四大基本子空間" class="section level3 hasAnchor" number="2.1.3">
+<h3><span class="header-section-number">2.1.3</span> Four Basis Spaces (四大基本子空間)<a href="linear-algebra.html#four-basis-spaces-四大基本子空間" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>假設 <span class="math inline">\(A \in F^{m \times n}\)</span></p>
+<ol style="list-style-type: decimal">
+<li>Row space 為 <span class="math inline">\(A\)</span> row vector 的線性組合，<span class="math inline">\(\mbox{RS}(A) = \{xA|x\in F^{1 \times m}\}\)</span></li>
+<li>Column space 為 <span class="math inline">\(A\)</span> colume vector 的線性組合，<span class="math inline">\(\mbox{CS}(A) = \{Ax|x\in F^{m\times 1}\}\)</span></li>
+<li>kernal space 為 <span class="math inline">\(Ax = 0\)</span> 的 solution space，<span class="math inline">\(\mbox{ker}(A) = \{x \in F^{m \times 1}|Ax = 0\}\)</span></li>
+<li>left kernal space 為 <span class="math inline">\(xA = 0\)</span> 的 solution space，<span class="math inline">\(L\mbox{ker}(A) = \{x \in F^{1 \times m}|xA = 0\}\)</span></li>
+</ol>
+<p><strong>Note :</strong></p>
+<ol style="list-style-type: decimal">
+<li><span class="math inline">\(\mbox{CS}(A) = \mbox{Range}(A) = \mbox{R}(A)\)</span></li>
+<li><span class="math inline">\(\mbox{ker}(A) = \mbox{Nullspace}(A) = \mbox{Null(A)} = \mbox{N}(A)\)</span></li>
+<li><span class="math inline">\(L\mbox{ker}(A) = \mbox{ker}(A^T)\)</span>，(<span class="math inline">\(A\)</span> 的 row vector 為 <span class="math inline">\(A^T\)</span> 的 column vector)</li>
+<li>列運算不改變 Row space 和 kernal space
+若<span class="math inline">\(A\)</span> row equivalent to <span class="math inline">\(B\)</span> 則 <span class="math inline">\(\mbox{RS}(A) = \mbox{RS}(B)\)</span> 且 <span class="math inline">\(\mbox{ker}(A) = \mbox{ker}(B)\)</span></li>
+<li>行運算不改變 Column space 和 left kernal space
+若<span class="math inline">\(A\)</span> cloumn equivalent to <span class="math inline">\(B\)</span> 則 <span class="math inline">\(\mbox{CS}(A) = \mbox{CS}(B)\)</span> 且 <span class="math inline">\(L\mbox{ker}(A) = L\mbox{ker}(B)\)</span></li>
+<li><span class="math inline">\(\mbox{RS}(AB) \subseteq \mbox{RS}(B);\)</span> <span class="math inline">\(\mbox{CS}(AB) \subseteq \mbox{CS}(A)\)</span></li>
+<li>若 <span class="math inline">\(AB = O\)</span> 則 <span class="math inline">\(\mbox{CS}(B)\subseteq \mbox{ker}(A);\)</span> <span class="math inline">\(\mbox{RS}(A) \subseteq L\mbox{ker}(B)\)</span></li>
+<li><span class="math inline">\(Ax = b\)</span> is consistent 若且唯若 <span class="math inline">\(b \in \mbox{CS}(A)\)</span></li>
+</ol>
+<p><strong>Clearly explaintion on feature 6. :</strong></p>
+<p><span class="math display">\[A_{m \times n}B_{n \times m} = \begin{bmatrix}
+ | &amp; \vdots &amp; | \\
+ a_1 &amp; \cdots &amp; a_n \\
+ | &amp; \vdots &amp; |
+\end{bmatrix}\begin{bmatrix}
+ b_{11} &amp; \cdots &amp; b_{1m}\\
+ \vdots &amp; \ddots &amp; \vdots\\
+ b_{n1} &amp; \cdots &amp; b_{nm}
+\end{bmatrix}\]</span>
+<span class="math inline">\(AB\)</span> 可以看做是 <span class="math inline">\(A\)</span> Column vector 的線性組合，顯而易見地 <span class="math inline">\(AB\)</span> 的 Column space 自然會包含於 <span class="math inline">\(A\)</span> 的 Column space</p>
+<p><span class="math display">\[
+A_{m\times n}B_{n \times m} = \begin{bmatrix}
+ a_{11} &amp; \cdots &amp; a_{1n}\\
+ \vdots &amp; \ddots &amp; \vdots\\
+ a_{m1} &amp; \cdots &amp; a_{mn}
+\end{bmatrix}\begin{bmatrix}
+ － &amp; b_1 &amp; －\\
+ \cdots &amp; \vdots &amp; \cdots\\
+ － &amp; b_n &amp;－
+\end{bmatrix}
+\]</span></p>
+<p><span class="math inline">\(AB\)</span> 也可以看做是 <span class="math inline">\(B\)</span> Row vector 的線性組合，顯而易見地 <span class="math inline">\(AB\)</span> 的 Row space 自然會包含於 <span class="math inline">\(B\)</span> 的 Row space</p>
+<p><strong>Clearly explaintion on feature 7. :</strong></p>
+<p>let <span class="math inline">\(y \in \mbox{CS}(B)\)</span>, i.e., <span class="math inline">\(y = Bx\)</span> for some <span class="math inline">\(x\)</span>, then we have following relation <span class="math inline">\(AB = O \implies (AB)x = Ox = 0 \iff A(Bx) = 0 \iff Ay = 0 \iff y \in \mbox{ker}(A)\)</span></p>
+<p>let <span class="math inline">\(y \in \mbox{RS}(A)\)</span>, i.e., <span class="math inline">\(y = xA\)</span> for some <span class="math inline">\(x\)</span>, then we have following relation <span class="math inline">\(AB = O \implies x(AB) = xO = 0 \iff (xA)B = 0 \iff yB = 0 \iff y \in L\mbox{ker}(B)\)</span></p>
+</div>
+<div id="solve-linear-system-求解線性系統" class="section level3 hasAnchor" number="2.1.4">
+<h3><span class="header-section-number">2.1.4</span> Solve Linear System (求解線性系統)<a href="linear-algebra.html#solve-linear-system-求解線性系統" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>令 <span class="math inline">\(A \in F^{m \times n}\)</span> 且 <span class="math inline">\(x, b \in F^{1 \times n}\)</span></p>
+<ul>
+<li>線性系統 <span class="math inline">\(Ax = b\)</span> 的其中一解稱為特解 (particular solution)</li>
+<li>線性系統 <span class="math inline">\(Ax = 0\)</span> 的解稱為零解 (homogeneous solution)</li>
+<li>線性系統 <span class="math inline">\(Ax = b\)</span> 的解為一個特解加上零解</li>
+<li>A linear system <span class="math inline">\(Ax = b\)</span> is called consistent if <span class="math inline">\(b \in \mbox{CS}(A)\)</span></li>
+<li>A linear system <span class="math inline">\(Ax = b\)</span> is called inconsistent if <span class="math inline">\(b \notin \mbox{CS}(A)\)</span></li>
+</ul>
+</div>
+<div id="線性系統求解演算法" class="section level3 hasAnchor" number="2.1.5">
+<h3><span class="header-section-number">2.1.5</span> 線性系統求解演算法<a href="linear-algebra.html#線性系統求解演算法" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ol style="list-style-type: decimal">
+<li><span class="math inline">\(\mbox{Input :}\)</span> an consistent matrix <span class="math inline">\(A_{m \times n}\)</span> and vector <span class="math inline">\(b\)</span> which is in the column space of <span class="math inline">\(A\)</span></li>
+<li>Do row operation to obtain the echlon form <span class="math inline">\((A\mid b) \rightarrow (R \mid r)\)</span></li>
+<li>Find all the free variables <span class="math inline">\(y_1, \cdots, y_k\)</span></li>
+<li>Set <span class="math inline">\(y_1= \cdots = y_k = 0\)</span>, solve <span class="math inline">\(Rx = r\)</span> and get a particular solution <span class="math inline">\(p\)</span></li>
+<li>For each <span class="math inline">\(i = 1, \cdots, k\)</span> set <span class="math inline">\(y_i = 1\)</span> and other <span class="math inline">\(y = 0\)</span>, solve <span class="math inline">\(Rx = 0\)</span> and get a homogeneous solution <span class="math inline">\(\beta_i\)</span></li>
+<li><span class="math inline">\(\mbox{Output :}\)</span> <span class="math inline">\(p + c_1\beta_1 + \cdots + c_k\beta_k\)</span></li>
+</ol>
+</div>
+<div id="spanning-set-and-generating-set-生成集與獨立集" class="section level3 hasAnchor" number="2.1.6">
+<h3><span class="header-section-number">2.1.6</span> Spanning Set and Generating Set (生成集與獨立集)<a href="linear-algebra.html#spanning-set-and-generating-set-生成集與獨立集" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>令 <span class="math inline">\(S\)</span> 為向量空間 <span class="math inline">\(V_F\)</span> 的子集合，<span class="math inline">\(\displaystyle span(S) = \{\sum_{i = 1}^{k}\alpha_i v_i \mid v_i \in S, \alpha_i \in F, 1 \leq i \leq k\}\)</span> 稱為集合 <span class="math inline">\(S\)</span> 的生成空間而 <span class="math inline">\(S\)</span> 為<span class="math inline">\(span(S)\)</span> 的生成集</p>
+<p><strong>Note</strong> (令 <span class="math inline">\(S,S_1,S_2\)</span> 為向量空間 <span class="math inline">\(V_F\)</span> 的子集合) <strong>:</strong></p>
+<ul>
+<li>我們約定 <span class="math inline">\(span(\phi) = \{0\}\)</span></li>
+<li><span class="math inline">\(span(S)\)</span> 滿足加法與存量乘法封閉性，為包含 <span class="math inline">\(S\)</span> 的最小子空間</li>
+<li><span class="math inline">\(\mbox{RS}(A) = span(\{\mbox{all the row vector in A}\})\)</span></li>
+<li><span class="math inline">\(\mbox{CS}(A) = span(\{\mbox{all the column vector in A}\})\)</span></li>
+<li><span class="math inline">\(S \subseteq span(S)\)</span> 且若 <span class="math inline">\(S_1 \subseteq S_2 \subseteq V\)</span> 則 <span class="math inline">\(span(S_1) \subseteq span(S_2)\)</span></li>
+<li><span class="math inline">\(span(S_1)\)</span> <span class="math inline">\(\cup\)</span> <span class="math inline">\(span(S_2) \subseteq span(S_1\)</span> <span class="math inline">\(\cup\)</span> <span class="math inline">\(S_2)\)</span></li>
+<li><span class="math inline">\(span(S_1)\)</span> <span class="math inline">\(\cap\)</span> <span class="math inline">\(span(S_2) \supseteq span(S_1\)</span> <span class="math inline">\(\cap\)</span> <span class="math inline">\(S_2)\)</span></li>
+<li><span class="math inline">\(S\)</span> 為 <span class="math inline">\(W\)</span> 的子空間，則 <span class="math inline">\(span(S) \subseteq W\)</span></li>
+</ul>
+</div>
+<div id="和空間的生成集" class="section level3 hasAnchor" number="2.1.7">
+<h3><span class="header-section-number">2.1.7</span> 和空間的生成集<a href="linear-algebra.html#和空間的生成集" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>若 <span class="math inline">\(W_1 = span(S_1)\)</span>, <span class="math inline">\(W_2 = span(S_2)\)</span>，則<span class="math inline">\(W_1 + W_2 = span(S_1\)</span> <span class="math inline">\(\cup\)</span> <span class="math inline">\(S_2) = span(S_1) + span(S_2)\)</span></p>
+<p><strong>Note :</strong></p>
+<ul>
+<li>求和空間時，就取個別生成集聯集</li>
+</ul>
+</div>
+</div>
+<div id="linear-independent-and-linear-dependent-線性獨立與線性相依" class="section level2 hasAnchor" number="2.2">
+<h2><span class="header-section-number">2.2</span> Linear independent and Linear dependent (線性獨立與線性相依)<a href="linear-algebra.html#linear-independent-and-linear-dependent-線性獨立與線性相依" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>假設 <span class="math inline">\(V_F\)</span> 為向量空間且有子集 <span class="math inline">\(S\)</span>，給定有現向量 <span class="math inline">\(v_1,\cdots,v_k \in S\)</span> 和純量 <span class="math inline">\(c_1,\cdots,c_k \in F\)</span></p>
+<p>若 <span class="math inline">\(c_1v_1 + \cdots + c_kv_k = 0 \iff c_i \neq 0\)</span> for some <span class="math inline">\(1\leq i \leq k\)</span>，則稱 <span class="math inline">\(S\)</span> 為線性相依集
+若 <span class="math inline">\(c_1v_1 + \cdots + c_kv_k = 0 \iff c_i = 0\)</span> for all <span class="math inline">\(1\leq i \leq k\)</span>，則稱 <span class="math inline">\(S\)</span> 為線性獨立集</p>
+<p><strong>Note :</strong></p>
+<ul>
+<li>我們約定 <span class="math inline">\(\phi\)</span> 為線性獨立集</li>
+<li>向量空間的子集不是線性相依就是線性獨立</li>
+<li><span class="math inline">\(\{0\}\)</span> 是線性相依集 <span class="math inline">\(\implies\)</span> 所有含有 <span class="math inline">\(\{0\}\)</span> 的子集向量必是線性相依集</li>
+<li>若 <span class="math inline">\(S\)</span> 為線性相依集，則表示 <span class="math inline">\(S\)</span> 中的元素可以表示為其他元素線性組合</li>
+<li>包含線性相依的子集必是線性相依，線性獨立集的子集必是線性獨立</li>
+<li><span class="math inline">\(\{v_1,\cdots,v_n\} \in \mathbb{R}^n\)</span> 是線性獨立集，則 <span class="math inline">\(\{Av_1,\cdots,Av_n\} \in \mathbb{R}^n\)</span> 是線性獨立集 <span class="math inline">\(\iff A\)</span> 可逆</li>
+</ul>
+<div id="線性獨立判別法" class="section level3 hasAnchor" number="2.2.1">
+<h3><span class="header-section-number">2.2.1</span> 線性獨立判別法<a href="linear-algebra.html#線性獨立判別法" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ol style="list-style-type: decimal">
+<li>依照定義做驗證</li>
+<li>以列向量的形式排成矩陣做列運算</li>
+<li><span class="math inline">\(\mbox{Wronskian}\)</span> 線性獨立判別法 (多用在函數的向量空間判斷)</li>
+</ol>
+<p>設 <span class="math inline">\(f_1, \cdots, f_n \in C^{(n-1)}[a,b]\)</span>，<span class="math inline">\(f_1, \cdots, f_n\)</span> 的 <span class="math inline">\(\mbox{Wromskian}\)</span> 定義為</p>
+<p><span class="math display">\[
+W[f_1, \cdots, f_n](x) = \begin{vmatrix}
+ f_1(x) &amp; f_2(x) &amp; \cdots &amp; f_n(x)\\
+ f_1^{\prime}(x) &amp;  f_2^{\prime}(x) &amp; \cdots &amp;  f_n^{\prime}(x)\\
+ \vdots &amp; \vdots &amp; \ddots &amp; \vdots\\
+  f_1^{(n-1)}(x) &amp;  f_2^{(n-1)}(x) &amp; \cdots &amp;  f_n^{(n-1)}(x)
+\end{vmatrix}
+\]</span></p>
+<p>如果存在 <span class="math inline">\(x_0 \in [a, b]\)</span> such that <span class="math inline">\(W[f_1, \cdots, f_n](x) \neq 0\)</span> , 則 <span class="math inline">\(f_1,\cdots,f_n\)</span> 為線性獨立集</p>
+</div>
+</div>
+<div id="basis-and-space-property-基底與空間特性" class="section level2 hasAnchor" number="2.3">
+<h2><span class="header-section-number">2.3</span> Basis and Space Property (基底與空間特性)<a href="linear-algebra.html#basis-and-space-property-基底與空間特性" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>向量空間 <span class="math inline">\(V_F\)</span> 的子集 <span class="math inline">\(S\)</span> 如果滿足 <span class="math inline">\(span(S) = V\)</span> 和 <span class="math inline">\(S\)</span> 為獨立集，則稱 <span class="math inline">\(S\)</span> 為 <span class="math inline">\(V\)</span> 的一組基底
+向量空間的維度被定義為基底的基數 (the dimension of vector space is the cardinality of a basis)</p>
+<p><strong>Note :</strong></p>
+<ul>
+<li>我們約定 <span class="math inline">\(\{0\}\)</span> 的基底是 <span class="math inline">\(\phi\)</span></li>
+<li>一個不為獨立集的生成集必可移除一些向量使其成為一組基底</li>
+<li>一個不為生成集的獨立集必可添加一些向量使其成為一組基底</li>
+<li><span class="math inline">\(S\)</span> 為 <span class="math inline">\(V\)</span> 的基底 <span class="math inline">\(\iff\)</span> <span class="math inline">\(S\)</span> 是 <span class="math inline">\(V\)</span> 的最小生成集 <span class="math inline">\(\iff\)</span> <span class="math inline">\(S\)</span> 是 <span class="math inline">\(V\)</span> 的最大獨立集</li>
+<li><span class="math inline">\(\{v_1,\cdots,v_n\} \in \mathbb{R}^n\)</span> 是一組基底，則 <span class="math inline">\(\{Av_1,\cdots,Av_n\} \in \mathbb{R}^n\)</span> 是一組基底 <span class="math inline">\(\iff A\)</span> 可逆</li>
+</ul>
+<div id="四大子空間的基底" class="section level3 hasAnchor" number="2.3.1">
+<h3><span class="header-section-number">2.3.1</span> 四大子空間的基底<a href="linear-algebra.html#四大子空間的基底" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>求 <span class="math inline">\(A\)</span> 四大子空間基底，先做列運算 <span class="math inline">\(A \rightarrow R\)</span>，則我們有</p>
+<ol style="list-style-type: decimal">
+<li>nonzero row vectors of <span class="math inline">\(R\)</span> form a basis of <span class="math inline">\(\mbox{RS}(A)\)</span></li>
+<li>the pivot of <span class="math inline">\(R\)</span> corresponse to column vectors of <span class="math inline">\(A\)</span> form a basis of <span class="math inline">\(\mbox{CS}(A)\)</span></li>
+<li><span class="math inline">\(\mbox{ker}(A) = \mbox{ker}(R)\)</span> , therefore the basis of <span class="math inline">\(\mbox{ker}(R)\)</span> form a basis of <span class="math inline">\(\mbox{ker}(A)\)</span></li>
+<li><span class="math inline">\(L\mbox{ker}(A) = \mbox{RS}(A)^{\bot}\)</span> , therefore the vectors which perpendecular to the vectors in <span class="math inline">\(\mbox{RS}(A)\)</span> form a basis of <span class="math inline">\(L\mbox{ker}(A)\)</span></li>
+<li>if <span class="math inline">\(A = PR\)</span> and <span class="math inline">\(\mbox{rank}(A) = r\)</span> , <span class="math inline">\(P\)</span> is invertible, then exactly <span class="math inline">\(r\)</span> column vectors from mostleft form a basis of <span class="math inline">\(\mbox{CS}(A)\)</span></li>
+</ol>
+<p><strong>Note :</strong></p>
+<ul>
+<li><span class="math inline">\(A = PR\)</span> means that <span class="math inline">\(A\)</span> is row equivalent to <span class="math inline">\(R\)</span> and the procedure are represented by matrix <span class="math inline">\(P\)</span></li>
+</ul>
+<div id="dimension-of-sum-space-和空間維度" class="section level4 hasAnchor" number="2.3.1.1">
+<h4><span class="header-section-number">2.3.1.1</span> Dimension of Sum Space (和空間維度)<a href="linear-algebra.html#dimension-of-sum-space-和空間維度" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p><span class="math inline">\(\mbox{dim}(V) &lt; \infty\)</span>，且 <span class="math inline">\(W_1\)</span>, <span class="math inline">\(W_2\subseteq V_F\)</span> ，則 <span class="math inline">\(\mbox{dim}(W_1 + W_2) = \mbox{dim}(W_1) + \mbox{dim}(W_2) - \mbox{dim}(W_1\)</span> <span class="math inline">\(\cap\)</span> <span class="math inline">\(W_2)\)</span></p>
+<p><strong>Note :</strong></p>
+<ul>
+<li><span class="math inline">\(\mbox{dim}(W_1 + W_2) = \mbox{dim}(W_1) + \mbox{dim}(W_2) \iff W_1\)</span> <span class="math inline">\(\cap\)</span> <span class="math inline">\(W_2 = \{0\}\)</span></li>
+<li>和空間維度公式不適用於排容原理</li>
+</ul>
+</div>
+</div>
+</div>
+<div id="linear-transformation-線性映射" class="section level2 hasAnchor" number="2.4">
+<h2><span class="header-section-number">2.4</span> Linear transformation (線性映射)<a href="linear-algebra.html#linear-transformation-線性映射" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>在佈於 <span class="math inline">\(F\)</span> 上的向量空間 <span class="math inline">\(V\)</span> , <span class="math inline">\(W\)</span>，若函數 <span class="math inline">\(T:V \rightarrow W\)</span> 滿足 <span class="math inline">\(\forall\)</span> <span class="math inline">\(u, v \in V\)</span> , <span class="math inline">\(c \in F\)</span> 有
+<span class="math inline">\(T(u+cv) = T(u) + cT(v)\)</span>，則稱 <span class="math inline">\(T\)</span> 為從 <span class="math inline">\(V\)</span> 到 <span class="math inline">\(W\)</span> 的線性映射，寫作 <span class="math inline">\(T \in L(V, W)\)</span></p>
+<p>令 <span class="math inline">\(X,Y\)</span> 為 <span class="math inline">\(V,W\)</span> 的子集
+<span class="math inline">\(T(X) = \{T(v)\mid v \in X\}\)</span> 稱為 <span class="math inline">\(X\)</span> 之於 <span class="math inline">\(T\)</span> 的像 (image)
+<span class="math inline">\(T^{-1}(Y) = \{v \in V\mid T(v) \in Y\}\)</span> 稱為 <span class="math inline">\(Y\)</span> 之於 <span class="math inline">\(T\)</span> 的反像 (preimage)</p>
+<p><strong>Note :</strong></p>
+<ul>
+<li><span class="math inline">\(T(0) = 0\)</span> 且 <span class="math inline">\(T^{-1}\)</span> 並非 <span class="math inline">\(T\)</span> 的反函數</li>
+<li>微分運算與積分運算為線性映射且有不可逆的矩陣表示法</li>
+<li>若 <span class="math inline">\(T,U \in L(V,W)\)</span>，則 <span class="math inline">\(T = U \iff T(b_i) = U(b_i)\)</span> 其中 <span class="math inline">\(b_i\)</span> , <span class="math inline">\(1 \leq i \leq n\)</span> 形成 <span class="math inline">\(V\)</span> 的一組基底</li>
+<li>對於同一個有序基底，線性變換存在唯一的矩陣表示法</li>
+</ul>
+</div>
+<div id="rank-of-a-matrix-矩陣的秩" class="section level2 hasAnchor" number="2.5">
+<h2><span class="header-section-number">2.5</span> Rank of a Matrix (矩陣的秩)<a href="linear-algebra.html#rank-of-a-matrix-矩陣的秩" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>對於任意矩陣 <span class="math inline">\(A\)</span> , <span class="math inline">\(\mbox{dim}(\mbox{RS}(A))\)</span> 稱為 row rank of <span class="math inline">\(A\)</span>
+對於任意矩陣 <span class="math inline">\(A\)</span> , <span class="math inline">\(\mbox{dim}(\mbox{CS}(A))\)</span> 稱為 column rank of <span class="math inline">\(A\)</span></p>
+<p>The definition of the rank of a matrix <span class="math inline">\(A\)</span> is the dimension of Vector space spanned by the columns of <span class="math inline">\(A\)</span>, or the dimension of Vector space spanned by the row of <span class="math inline">\(A\)</span>, equivalently,</p>
+<p><span class="math inline">\(\mbox{rank} = \mbox{dim}(\mbox{RS}(A)) = \mbox{dim}(\mbox{CS}(A))\)</span>  (詳見如何找四大空間基底)</p>
+<p><strong>Note :</strong></p>
+<ul>
+<li>矩陣的秩可以看做可控參數的數目，而核空間的維度可以看做自由參數的數目 (參考自由度)</li>
+<li><span class="math inline">\(A \in F^{n \times n}\)</span> 可逆 <span class="math inline">\(\iff\)</span> <span class="math inline">\(A\)</span> 是滿秩的 (full rank and <span class="math inline">\(\mbox{rank}(A) = n\)</span>)</li>
+</ul>
+<div id="sylvester-theorem-秩-零度定理" class="section level3 hasAnchor" number="2.5.1">
+<h3><span class="header-section-number">2.5.1</span> Sylvester Theorem (秩 零度定理)<a href="linear-algebra.html#sylvester-theorem-秩-零度定理" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>假設線性變換 <span class="math inline">\(T \in L(V,W)\)</span> 有矩陣表示法 <span class="math inline">\(A \in F^{m \times n}\)</span> 且 <span class="math inline">\(\mbox{dim}(V) &lt; \infty\)</span>，則以下數學式常用</p>
+<ol style="list-style-type: decimal">
+<li><span class="math inline">\(n = nullity(A) + \mbox{rank}(A)\)</span></li>
+<li><span class="math inline">\(m = nullity(A^T) + \mbox{rank}(A^T) = nullity(A^T) + \mbox{rank}(A)\)</span></li>
+<li><span class="math inline">\(\mbox{dim}(V) = nullity(T) + \mbox{rank}(T)\)</span></li>
+<li><span class="math inline">\(V = \mbox{ker}(T) + \mbox{Im}(T) \iff \mbox{ker}(T)\)</span> <span class="math inline">\(\cap\)</span> <span class="math inline">\(\mbox{Im}(T) = \{0\}\)</span></li>
+</ol>
+</div>
+<div id="property-of-the-rank-秩的特性" class="section level3 hasAnchor" number="2.5.2">
+<h3><span class="header-section-number">2.5.2</span> Property of the Rank (秩的特性)<a href="linear-algebra.html#property-of-the-rank-秩的特性" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ol style="list-style-type: decimal">
+<li><span class="math inline">\(\mbox{rank}(A) = \mbox{rank}(A^T)\)</span></li>
+<li><span class="math inline">\(\mbox{rank}(A) \leq \min\{m,n\}\)</span></li>
+<li>If <span class="math inline">\(A\)</span> is row / column equivalent to <span class="math inline">\(R\)</span> then <span class="math inline">\(\mbox{rank}(A) = \mbox{rank}(B)\)</span></li>
+<li><span class="math inline">\(\mbox{rank}(AB) \leq \min \{\mbox{rank}(A), \mbox{rank}(B)\}\)</span></li>
+<li>若方陣 <span class="math inline">\(P\)</span> 可逆，則 <span class="math inline">\(\mbox{rank}(PA) = \mbox{rank}(A)\)</span> , <span class="math inline">\(\mbox{rank}(AP) = \mbox{rank}(A)\)</span></li>
+<li><span class="math inline">\(\mbox{rank}(A+ B) \leq \mbox{rank}(A) + \mbox{rank}(B)\)</span></li>
+<li><span class="math inline">\(Ax = b\)</span> is consistent <span class="math inline">\(\iff\)</span> <span class="math inline">\(\mbox{rank}([A \mid b]) = \mbox{rank}(A)\)</span></li>
+<li><span class="math inline">\(\forall\)</span> <span class="math inline">\(b \in \mathbb{R}^{m \times 1}\)</span> , <span class="math inline">\(Ax = b\)</span> is consistent <span class="math inline">\(\iff \mbox{rank}(A) = m\)</span>
+<span class="math inline">\(m=n \implies\)</span> exactly one solution
+<span class="math inline">\(m &lt; n \implies\)</span> infinty solutions</li>
+</ol>
+<p><strong>Clearly explaintion :</strong></p>
+<ol style="list-style-type: decimal">
+<li>矩陣的轉置會把 Column space 和 Row space 對調，並不影響他們的基底，故秩相同</li>
+<li>Column space 和 Row space 的維度相同，故矩陣秩最大只能到<span class="math inline">\(\min \{\mbox{dimension of Column / Row space}\}\)</span></li>
+<li>行列運算並不改變 Column space 和 Row sapce，故秩相同</li>
+<li><span class="math inline">\(AB\)</span> 可以看做 <span class="math inline">\(A\)</span> column vectors 的線性組合或 <span class="math inline">\(B\)</span> row vectors 的線性組合，故 <span class="math inline">\(AB\)</span> 的秩較小</li>
+<li><span class="math inline">\(PA\)</span> 中的 <span class="math inline">\(P\)</span> 可以看做基本列運算，故 <span class="math inline">\(A\)</span> is row equivalent to <span class="math inline">\(PA\)</span>，故秩相同，同理可得後者</li>
+<li>矩陣的秩可以看做可控參數的數目，故分別可控的數量必比和空間要多 (<span class="math inline">\(A\)</span> 中可能存在某些向量與 <span class="math inline">\(B\)</span> 中的向量線性相依)</li>
+<li>增廣矩陣秩不變表示 <span class="math inline">\(b\)</span> 為 <span class="math inline">\(A\)</span> 中 column vectors 的線性組合，也就是說 <span class="math inline">\(b \in \mbox{CS}(A)\)</span></li>
+<li>由秩零度定理知，<span class="math inline">\(nullity(A) &gt; 0\)</span>，自由參數大於 <span class="math inline">\(1\)</span> ，故無限多組解</li>
+</ol>
+</div>
+</div>
+<div id="direct-sum-and-projection-直和與投影" class="section level2 hasAnchor" number="2.6">
+<h2><span class="header-section-number">2.6</span> Direct Sum and Projection (直和與投影)<a href="linear-algebra.html#direct-sum-and-projection-直和與投影" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>對於向量空間 <span class="math inline">\(V_F\)</span> 與子空間 <span class="math inline">\(W_1, \cdots, W_k\)</span>，若 <span class="math inline">\(W_i\)</span> <span class="math inline">\(\cap\)</span> <span class="math inline">\(\displaystyle\sum_{i\neq j}W_j = \{0\}\)</span> where <span class="math inline">\(1\leq i \leq k\)</span> 則稱 <span class="math inline">\(W_1, \cdots, W_k\)</span> 為獨自子空間，且若有 <span class="math inline">\(V = \displaystyle \sum_{i=1}^kW_i\)</span>，則稱 <span class="math inline">\(W_1, \cdots, W_k\)</span> 為 <span class="math inline">\(V\)</span> 的一個直和，記做 <span class="math inline">\(V = W_1 \oplus W_2 \cdots \oplus W_k\)</span></p>
+<p><strong>Note :</strong></p>
+<ul>
+<li>對於任意 <span class="math inline">\(v \in V\)</span> 存在唯一方式分解成 <span class="math inline">\(\sum w_i\)</span> for <span class="math inline">\(1\leq i\leq k\)</span> 其中 <span class="math inline">\(w_i \in W_i\)</span></li>
+<li>任何一個<strong>方陣</strong>必可分解成一個對稱矩陣加上一個反對稱矩陣</li>
+<li>任何一個<strong>實函數</strong>必可分解成一個奇函數加上一個偶函數</li>
+</ul>
+<div id="projection-matrix-投影矩陣" class="section level3 hasAnchor" number="2.6.1">
+<h3><span class="header-section-number">2.6.1</span> Projection Matrix (投影矩陣)<a href="linear-algebra.html#projection-matrix-投影矩陣" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>若 <span class="math inline">\(T \in L(V,V)\)</span> 滿足 <span class="math inline">\(T^2 = T\)</span> 則稱 <span class="math inline">\(T\)</span> 為 <span class="math inline">\(V\)</span> 上的投影/冪等算子 (projection / idempotent operator)
+若 <span class="math inline">\(A \in F^{m\times n}\)</span> 滿足 <span class="math inline">\(A^2 = A\)</span> 則稱 <span class="math inline">\(A\)</span> 為投影/冪等矩陣 (projection / idempotent matrix)</p>
+<p><strong>Note :</strong></p>
+<ol style="list-style-type: decimal">
+<li>投影矩陣投影兩次等於投影一次</li>
+<li>投影矩陣把被投影的向量投影到該矩陣的 Column space 上</li>
+<li><span class="math inline">\(I_n - \frac{1}{n}J_n\)</span> 為投影矩陣</li>
+<li>若 <span class="math inline">\(A,B\)</span> 皆為對稱矩陣，且滿足 <span class="math inline">\(AB\)</span> 為投影矩陣，則 <span class="math inline">\(BA\)</span> 為投影矩陣</li>
+<li>若 <span class="math inline">\(A\)</span> 為投影矩陣，則 <span class="math inline">\(I - A\)</span> 也是投影矩陣</li>
+<li>若方陣 <span class="math inline">\(A\)</span> 為投影矩陣，則 <span class="math inline">\(A = I\)</span> 或 <span class="math inline">\(A\)</span> 不可逆</li>
+</ol>
+<p><strong>Clearly explaintion :</strong></p>
+<ol style="list-style-type: decimal">
+<li>把向量 <span class="math inline">\(x\)</span> 投影到 <span class="math inline">\(A\)</span> 的 Coumn space 上後，<span class="math inline">\(x \in \mbox{CS}(A)\)</span>，在投影一次也是一樣的結果</li>
+<li><span class="math inline">\(Ax\)</span> 代表 <span class="math inline">\(A\)</span> column vectors 的線性組合，自然投影到 <span class="math inline">\(\mbox{CS}(A)\)</span> 上，且投影兩次結果不變</li>
+<li><span class="math inline">\((I_n - \frac{1}{n}J_n)^2 = I_n - \frac{2}{n}J_n + \frac{1}{n^2}J_n^2 = I_n - \frac{1}{n}J_n\)</span></li>
+<li><span class="math inline">\((BA)^2 = ((A^TB^T)^T)^2 = ((AB)^T)^2 = ((AB)^2)^T = (AB)^T = BA\)</span></li>
+<li>投影矩陣把向量投影到不同的獨立子空間後，根據直和的定義，他在各個獨立子空間有唯一分解表達式，故把表達式加總後會回到原來的向量，也就是說 <span class="math inline">\(I_n = (I_n - A) \oplus A\)</span> 為投影矩陣 (詳見譜分解定理)</li>
+<li>如果投影矩陣把原空間投影到相同的空間，則投影矩陣為單位矩陣
+如果投影矩陣把原空間投影到更低的維度時，他必然捨棄一些維度，故 <span class="math inline">\(A\)</span> 不可逆</li>
+</ol>
+</div>
+<div id="orthogonal-projection-正交投影" class="section level3 hasAnchor" number="2.6.2">
+<h3><span class="header-section-number">2.6.2</span> Orthogonal Projection (正交投影)<a href="linear-algebra.html#orthogonal-projection-正交投影" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>若 <span class="math inline">\(V = X\oplus Y\)</span>， 根據直和定義 <span class="math inline">\(\forall \ z \in V\)</span> <span class="math inline">\(z =x + y\)</span> 其中 <span class="math inline">\(x \in X\)</span> , <span class="math inline">\(y \in Y\)</span>，且線性算子 <span class="math inline">\(T(z) = x\)</span>，則稱線性算子 <span class="math inline">\(T\)</span> 為沿著 <span class="math inline">\(Y\)</span> 在 <span class="math inline">\(X\)</span> 上的投影，更進一步，若 <span class="math inline">\(X\)</span> 正交於 <span class="math inline">\(Y\)</span>，則稱為正交投影</p>
+<p><strong>Example :</strong> 在 <span class="math inline">\(\mathbb{R}^3\)</span> 中，<span class="math inline">\(\mathbb{R}^3 = P \oplus L\)</span>，其中 <span class="math inline">\(P\)</span> 為一平面，<span class="math inline">\(L\)</span> 為一條直線，且 <span class="math inline">\(L\)</span> 不在 <span class="math inline">\(P\)</span> 上，則任何向量 <span class="math inline">\(z \in \mathbb{R}^3\)</span> 皆可表示為 <span class="math inline">\(P\)</span> 上的點和 <span class="math inline">\(P\)</span> 外的點的和，而 <span class="math inline">\(P\)</span> 上的點為 <span class="math inline">\(P\)</span> 外的點沿著 <span class="math inline">\(L\)</span> 在 <span class="math inline">\(P\)</span> 上的投影</p>
+</div>
+</div>
+<div id="change-basis-and-coordinates-matrix-基底變換與基底變換矩陣" class="section level2 hasAnchor" number="2.7">
+<h2><span class="header-section-number">2.7</span> Change Basis and Coordinates Matrix (基底變換與基底變換矩陣)<a href="linear-algebra.html#change-basis-and-coordinates-matrix-基底變換與基底變換矩陣" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>假設 <span class="math inline">\(\beta = \{b_1 ,\cdots ,b_n\}\)</span> 為向量空間 <span class="math inline">\(V\)</span> 的一組有序基底，則任何一個向量 <span class="math inline">\(v \in V\)</span> 可以用 <span class="math inline">\(\beta\)</span> 中的基底表示，有 <span class="math inline">\(v = c_1b_1 + \cdots + c_nb_n\)</span>，且是唯一表示，記做 <span class="math inline">\(\begin{bmatrix}v\end{bmatrix}_{\beta}\)</span></p>
+<p>假設有另外一組有序基底 <span class="math inline">\(\alpha = \{a_1,\cdots,a_n\}\)</span>，令矩陣 <span class="math inline">\(A, B\)</span> 的 Column vector 分別由 <span class="math inline">\(\alpha, \beta\)</span> 表示，
+定義 <span class="math inline">\(\alpha\)</span> 到 <span class="math inline">\(\beta\)</span> 的基底變換矩陣為 <span class="math inline">\(P = [\ [a_1]_{\beta}, \cdots, [a_n]_{\beta}\ ]\)</span> 其 Colmn vector 為 <span class="math inline">\(A\)</span> 的 Column vector 在 <span class="math inline">\(\beta\)</span> 基底下的表示法係數，且有以下關係 :</p>
+<ol style="list-style-type: decimal">
+<li><span class="math inline">\(\forall\ v \in V\)</span> , <span class="math inline">\(\begin{bmatrix}v\end{bmatrix} _{\beta} = P\begin{bmatrix}v\end{bmatrix}_{\alpha}\)</span></li>
+<li><span class="math inline">\(BP = A\)</span> or equivalently <span class="math inline">\(P = B^{-1}A\)</span></li>
+</ol>
+<p><strong>Clearly explaintion :</strong></p>
+<ol style="list-style-type: decimal">
+<li><span class="math inline">\(\begin{bmatrix}v\end{bmatrix}_{\alpha}\)</span> 為在 <span class="math inline">\(\alpha\)</span> 基底下的表示係數，而矩陣 <span class="math inline">\(P\)</span> 為 <span class="math inline">\(\alpha\)</span> 基底在 <span class="math inline">\(\beta\)</span> 基底下的表示係數</li>
+<li>考慮 <span class="math inline">\(BPv = Av\)</span>， <span class="math inline">\(Av\)</span> 為 <span class="math inline">\(\alpha\)</span> 中基底的線性組合，即用 <span class="math inline">\(\alpha\)</span> 基底來看向量 <span class="math inline">\(v\)</span>
+<span class="math inline">\(BPv\)</span> 為 <span class="math inline">\(\beta\)</span> 中基底的線性組合，即用 <span class="math inline">\(\beta\)</span> 基底來看向量 <span class="math inline">\(v\)</span>，故兩者相同</li>
+</ol>
+</div>
+<div id="線性變換矩陣表示法" class="section level2 hasAnchor" number="2.8">
+<h2><span class="header-section-number">2.8</span> 線性變換矩陣表示法<a href="linear-algebra.html#線性變換矩陣表示法" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>求性線變換 <span class="math inline">\(T \in L(V,V)\)</span> 相對於 <span class="math inline">\(\alpha\)</span> 的矩陣 <span class="math inline">\(A\)</span> 表示法，先看基於哪一組基底 <span class="math inline">\((\alpha)\)</span> (一般為標準正交基) ，將基底帶入線性算子中即為 <span class="math inline">\(A\)</span> 的 Column vector，再用 <span class="math inline">\(\alpha\)</span>，記做 <span class="math inline">\(\begin{bmatrix}T\end{bmatrix}_{\alpha}\)</span></p>
+<p><span class="math display">\[
+A = \begin{bmatrix}
+\mid &amp;  &amp; \mid \\
+[T(a_1)]_{\alpha} &amp; \cdots &amp; [T(a_n)]_{\alpha} \\
+\mid &amp;  &amp; \mid
+\end{bmatrix}
+\]</span></p>
+<p>求性線變換 <span class="math inline">\(T \in L(V,W)\)</span> 相對於 <span class="math inline">\(\alpha\)</span> 到 <span class="math inline">\(\beta\)</span> 的矩陣 <span class="math inline">\(A\)</span> 表示法，先看基於哪一組基底 <span class="math inline">\((\alpha)\)</span> (一般為標準正交基) ，將基底帶入線性算子中再用 <span class="math inline">\(\beta\)</span> 的基底表示，即為 <span class="math inline">\(A\)</span> 的 Column vector，記做 <span class="math inline">\(\begin{bmatrix}T\end{bmatrix}_{\alpha}^{\beta}\)</span></p>
+<p><span class="math display">\[
+A = \begin{bmatrix}
+\mid &amp;  &amp; \mid \\
+\begin{bmatrix}T(a_1)\end{bmatrix}_{\beta} &amp; \cdots &amp; \begin{bmatrix}T(a_n)\end{bmatrix}_{\beta} \\
+\mid &amp;  &amp; \mid
+\end{bmatrix}
+\]</span></p>
+<p><strong>Note :</strong> (這裡假設 <span class="math inline">\(T\in L(V,W)\)</span> 且 <span class="math inline">\(\alpha, \gamma\)</span> 為 <span class="math inline">\(V\)</span> 的一組基底 <span class="math inline">\(\beta, \gamma&#39;\)</span> 為 <span class="math inline">\(W\)</span> 的一組基底)</p>
+<ol style="list-style-type: decimal">
+<li><span class="math inline">\(\forall\ v \in V\)</span> , <span class="math inline">\(\begin{bmatrix}T(v)\end{bmatrix} _{\beta} = \begin{bmatrix}T\end{bmatrix}_{\alpha}^{\beta}\begin{bmatrix}v\end{bmatrix}_{\alpha}\)</span></li>
+<li><span class="math inline">\(\begin{bmatrix}T\end{bmatrix}_{\alpha}^{\beta} = \begin{bmatrix}I\end{bmatrix}_{\gamma&#39;}^{\beta}\begin{bmatrix}T\end{bmatrix}_{\gamma}^{\gamma&#39;}\begin{bmatrix}I\end{bmatrix}_{\alpha}^{\gamma}\)</span></li>
+</ol>
+<div id="similarity-of-the-square-matrix-方陣的相似" class="section level3 hasAnchor" number="2.8.1">
+<h3><span class="header-section-number">2.8.1</span> Similarity of the Square Matrix (方陣的相似)<a href="linear-algebra.html#similarity-of-the-square-matrix-方陣的相似" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>考慮方陣 <span class="math inline">\(A, B\)</span> 若存在 可逆矩陣 <span class="math inline">\(P\)</span> 滿足 <span class="math inline">\(B = P^{-1}AP\)</span> 則稱 <span class="math inline">\(A\)</span> 與 <span class="math inline">\(B\)</span> 相似 記做 <span class="math inline">\(A\)</span> <span class="math inline">\(\sim\)</span> <span class="math inline">\(B\)</span></p>
+<p><strong>Note :</strong> (假設 <span class="math inline">\(A \sim B\)</span> )</p>
+<ol style="list-style-type: decimal">
+<li>方陣的相似性為等價關係</li>
+<li><span class="math inline">\(I\)</span> 只與 <span class="math inline">\(I\)</span> 相似， <span class="math inline">\(O\)</span> 只與 <span class="math inline">\(O\)</span> 相似</li>
+<li>同一個線性變換在不同基底之下的矩陣表示法相似</li>
+<li><span class="math inline">\(A^T \sim B^T\)</span> 和 <span class="math inline">\(A^k \sim B^k\)</span></li>
+<li><span class="math inline">\(A + cI \sim B + cI\)</span></li>
+<li><span class="math inline">\(f(A) \sim f(B)\)</span> 其中 <span class="math inline">\(f\)</span> 為多項式函數</li>
+<li>若 <span class="math inline">\(A, B\)</span> 可逆，則 <span class="math inline">\(A^{-1} \sim B^{-1}\)</span></li>
+<li><span class="math inline">\(\mbox{tr}(A) = \mbox{tr}(B)\)</span></li>
+<li><span class="math inline">\(\mbox{det}(A) = \mbox{det}(B)\)</span></li>
+<li><span class="math inline">\(\mbox{rank}(A) = \mbox{rank}(B)\)</span> 且 <span class="math inline">\(nullity(A) = nullity(B)\)</span></li>
+</ol>
+<p>反過來說，以上一項不成立，則 <span class="math inline">\(A \not\sim B\)</span></p>
+</div>
+</div>
+<div id="eigenvalue-and-eigenvetor-特徵值與特徵向量" class="section level2 hasAnchor" number="2.9">
+<h2><span class="header-section-number">2.9</span> Eigenvalue and Eigenvetor (特徵值與特徵向量)<a href="linear-algebra.html#eigenvalue-and-eigenvetor-特徵值與特徵向量" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>對於矩陣 <span class="math inline">\(A \in F^{n \times n}\)</span>，若存在 <span class="math inline">\(\lambda \in \mathbb{R}\)</span> 和<strong>非零</strong>向量 <span class="math inline">\(v \in F^{n\times 1}\)</span>，使得 <span class="math inline">\(Av = \lambda v\)</span>，則稱 <span class="math inline">\(\lambda\)</span> 為矩陣 <span class="math inline">\(A\)</span> 的特徵值，<span class="math inline">\(v\)</span> 為矩陣 <span class="math inline">\(A\)</span> 的特徵向量</p>
+<p><strong>Note :</strong></p>
+<ol style="list-style-type: decimal">
+<li><span class="math inline">\(\lambda\)</span> 為矩陣 <span class="math inline">\(A\)</span> 的特徵值 <span class="math inline">\(\iff \mbox{det}(A - \lambda I) = 0\)</span></li>
+<li><span class="math inline">\(\mbox{ker}(A)\)</span> 中的非零向量均為特徵值 <span class="math inline">\(0\)</span> 對應的特徵向量</li>
+<li>若 <span class="math inline">\(v_1, v_2\)</span> 為相對於 <span class="math inline">\(\lambda\)</span> 的特徵向量，則 <span class="math inline">\(v_1 +v_2\)</span> <span class="math inline">\((\neq 0)\)</span> 亦為相對於 <span class="math inline">\(\lambda\)</span> 的特徵向量</li>
+<li>並非每個矩陣都有特徵值</li>
+<li>若 <span class="math inline">\(A \sim B\)</span>，則 <span class="math inline">\(A\)</span> 和 <span class="math inline">\(B\)</span> 有相同特徵值與相對應的特徵向量 <span class="math inline">\(v, P^{-1}v\)</span></li>
+<li><span class="math inline">\(AB\)</span> 和 <span class="math inline">\(BA\)</span> 有相同特徵值</li>
+<li><span class="math inline">\(A\)</span> 和 <span class="math inline">\(A^T\)</span> 有相同特徵值</li>
+<li>若 <span class="math inline">\(A\)</span> 的各行(列)元素和均為 <span class="math inline">\(c\)</span>，則必有特徵值 <span class="math inline">\(c\)</span></li>
+<li><span class="math inline">\(A\)</span> 可逆 <span class="math inline">\(\iff\)</span> <span class="math inline">\(0\)</span> 不為 <span class="math inline">\(A\)</span> 的一個特徵值</li>
+<li>如果 <span class="math inline">\(\lambda\)</span> 是 <span class="math inline">\(A\)</span> 相對於 <span class="math inline">\(v\)</span> 的特徵值，則
+<span class="math inline">\(\frac{1}{\lambda}\)</span> 為 <span class="math inline">\(A^{-1}\)</span> 相對於 <span class="math inline">\(v\)</span> 的特徵值
+<span class="math inline">\(\lambda^k\)</span> 為 <span class="math inline">\(A^k\)</span> 相對於 <span class="math inline">\(v\)</span> 的特徵值
+<span class="math inline">\(f(\lambda)\)</span> 為 <span class="math inline">\(f(A)\)</span> 相對於 <span class="math inline">\(v\)</span> 的特徵值，其中 <span class="math inline">\(f\)</span> 為多項式函數</li>
+</ol>
+<div id="characteristic-polynomial-特徵多項式" class="section level3 hasAnchor" number="2.9.1">
+<h3><span class="header-section-number">2.9.1</span> characteristic polynomial (特徵多項式)<a href="linear-algebra.html#characteristic-polynomial-特徵多項式" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>假設 <span class="math inline">\(A \in F^{n\times n}\)</span>，則特徵多項式被定義為 <span class="math inline">\(char_A(\lambda) = \mbox{det}(A - \lambda I)\)</span>，即解特徵值的方程式</p>
+<p><strong>Note :</strong></p>
+<ol style="list-style-type: decimal">
+<li>若 <span class="math inline">\(A \sim B\)</span>，則 <span class="math inline">\(char_A(\lambda) = char_B(\lambda)\)</span></li>
+<li><span class="math inline">\(A, B \in F^{n \times n}\)</span>，則 <span class="math inline">\(char_{AB}(\lambda) = char_{BA}(\lambda)\)</span></li>
+<li><span class="math inline">\(char_A(\lambda) = (-\lambda)^n + tr_1(A)(-\lambda)^{n-1} + \cdots + tr_{n-1}(A)(-\lambda) + tr_n(A)\)</span>，其中 <span class="math inline">\(tr_i(A)\)</span> 為 <span class="math inline">\(A\)</span> 中所有恰含 <span class="math inline">\(i\)</span> 的對角項的 <span class="math inline">\(i\)</span> 階子行列式的和</li>
+<li>若 <span class="math inline">\(A\)</span> 有特徵值 <span class="math inline">\(\lambda_1,\cdots, \lambda_k\)</span>，則 <span class="math inline">\(\lambda_1 + \cdots + \lambda_k = \mbox{tr}(A)\)</span>，<span class="math inline">\(\lambda_1\lambda_2\cdots \lambda_k = \mbox{det}(A)\)</span></li>
+</ol>
+</div>
+<div id="eigenspace-and-multiplicity-特徵空間和重數" class="section level3 hasAnchor" number="2.9.2">
+<h3><span class="header-section-number">2.9.2</span> Eigenspace and multiplicity (特徵空間和重數)<a href="linear-algebra.html#eigenspace-and-multiplicity-特徵空間和重數" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>假設 <span class="math inline">\(A \in F^{n\times n}\)</span>，<span class="math inline">\(v \in F^{n\times 1}\)</span> 為 <span class="math inline">\(A\)</span> 的特徵向量，定義 <span class="math inline">\(E_{\lambda_i} = \{v \mid Av = \lambda_i v，\lambda_i \in \mathbb{R}\} = \mbox{ker}(A - \lambda I)\)</span> 為 <span class="math inline">\(\lambda_i\)</span> 的特徵空間</p>
+<p>代數重數為特徵值 <span class="math inline">\(\lambda_i\)</span> 的重根個數，記做 <span class="math inline">\(am(\lambda_i)\)</span>
+幾何重數為特徵空間 <span class="math inline">\(E_{\lambda_i}\)</span> 的維度，記做 <span class="math inline">\(gm(\lambda_i)\)</span></p>
+<p><strong>Note :</strong></p>
+<ol style="list-style-type: decimal">
+<li><span class="math inline">\(\lambda\)</span> 對應的特徵向量為 <span class="math inline">\(E_{\lambda_i}\)</span> 中的非零向量</li>
+<li><span class="math inline">\(\lambda_1,\cdots,\lambda_k\)</span> 為相異特徵值，則 <span class="math inline">\(E_{\lambda_1},\cdots,E_{\lambda_k}\)</span> 為獨立子空間</li>
+<li><span class="math inline">\(gm(\lambda) = \mbox{dim}(E_{\lambda}) = nullity(T - \lambda I) = n - \mbox{rank}(T - \lambda I)\)</span></li>
+<li><span class="math inline">\(gm(0) = \mbox{dim}(E_0) = nullity(T) = n - \mbox{rank}(A)\)</span></li>
+<li><span class="math inline">\(1 \leq gm(\lambda) \leq am(\lambda) \leq n\)</span></li>
+<li>若 <span class="math inline">\(\mbox{rank}(A) = k\)</span>，則 <span class="math inline">\(A\)</span> 的相異特徵值最多 <span class="math inline">\(k\)</span> 個</li>
+</ol>
+</div>
+</div>
+<div id="diagonalizable-可對角化" class="section level2 hasAnchor" number="2.10">
+<h2><span class="header-section-number">2.10</span> Diagonalizable (可對角化)<a href="linear-algebra.html#diagonalizable-可對角化" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>假設 <span class="math inline">\(A \in F^{n\times n}\)</span>，若存在可逆矩陣 <span class="math inline">\(P\)</span> 使得 <span class="math inline">\(P^{-1}AP = D\)</span>，其中 <span class="math inline">\(D\)</span> 為對角矩陣，則稱 <span class="math inline">\(A\)</span> 可對角化，即 <span class="math inline">\(A \sim D\)</span></p>
+<p><strong>Clearly explantion on diagonalizable:</strong></p>
+<p>矩陣對角化的精神在於用特徵向量當作基底，來表達任何一個在 <span class="math inline">\(V\)</span> 中的向量，換句話說，如果特徵向量為 <span class="math inline">\(V\)</span> 的生成集，則 <span class="math inline">\(v \in V\)</span> 必可表示為特徵向量之和，過程如下 :</p>
+<p><strong>Input :</strong> a square matrix <span class="math inline">\(A\)</span></p>
+<ol style="list-style-type: decimal">
+<li>Compute the characteristic polynomial <span class="math inline">\(char_A(\lambda) = \mbox{det}(A - \lambda I)\)</span></li>
+<li>Factor <span class="math inline">\(char_A(\lambda) = (\lambda - \lambda_1)^{m1}(\lambda - \lambda_2)^{m2}\cdots(\lambda - \lambda_k)^{mk}\)</span></li>
+<li>For each <span class="math inline">\(\lambda_i\)</span> , compute a basis of <span class="math inline">\(E_{\lambda_i} = \mbox{ker}(A - \lambda_i I)\)</span> and let <span class="math inline">\(d_i = \mbox{dim}(E_{\lambda_i})\)</span></li>
+<li>If <span class="math inline">\(d_i = m_i\)</span> for <span class="math inline">\(i = 1,\cdots,k\)</span> then go to <span class="math inline">\(5.\)</span>
+If <span class="math inline">\(d_i \neq m_i\)</span> for some <span class="math inline">\(i\)</span> , then not diagonalizable</li>
+<li><span class="math display">\[D = \begin{bmatrix} \lambda_1 &amp; \cdots &amp; 0 \\ \vdots &amp; \ddots &amp; \vdots \\ 0 &amp; \cdots &amp; \lambda_k\end{bmatrix} \mbox{and}\ P = \begin{bmatrix}\mid &amp; &amp; \mid \\ v_1 &amp; \cdots &amp; v_k \\ \mid &amp; &amp; \mid\end{bmatrix} \ \mbox{where $v_i$ are the eigenbasis of $E_{\lambda_i}$}\]</span></li>
+<li><span class="math inline">\(A = PDP^{-1}\)</span> or <span class="math inline">\(D = P^{-1}AP\)</span></li>
+</ol>
+<p><strong>Note :</strong></p>
+<ol style="list-style-type: decimal">
+<li><span class="math inline">\(A \in F^{n\times n}\)</span> 可對角化 <span class="math inline">\(\iff A\)</span> 有 <span class="math inline">\(n\)</span> 個線性獨立的特徵向量</li>
+<li><span class="math inline">\(A \in F^{n\times n}\)</span> 有 <span class="math inline">\(n\)</span> 個相異的特徵值，則 <span class="math inline">\(A\)</span> 有 <span class="math inline">\(n\)</span> 個相互獨立的特徵向量</li>
+<li>若 <span class="math inline">\(A\)</span> 可對角化，則 <span class="math inline">\(A^T, A^{-1}, A^k, f(A)\)</span> 皆可對角化，其中 <span class="math inline">\(f\)</span> 為多項式函數</li>
+<li><span class="math inline">\(A\)</span> 可否對角化與可逆無關 ( <span class="math inline">\(O\)</span> 矩陣可對角化)</li>
+<li>實對稱矩陣皆可對角化</li>
+<li><span class="math inline">\(A\)</span> 可對角化 <span class="math inline">\(\iff\)</span> <span class="math inline">\(am(\lambda_i) = gm(\lambda_i)\)</span> for <span class="math inline">\(i = 1,\cdots,k\)</span></li>
+<li><span class="math inline">\(A\)</span> 的特徵值皆為 <span class="math inline">\(\pm 1 \implies\)</span> <span class="math inline">\(A^2 = I\)</span></li>
+<li>若 <span class="math inline">\(A\)</span> 為投影矩陣，則 <span class="math inline">\(A\)</span> 必可對角化，且 <span class="math inline">\(A\)</span> 的特徵值為 <span class="math inline">\(0\)</span> 或 <span class="math inline">\(1\)</span></li>
+<li>若 <span class="math inline">\(A\)</span> 為投影矩陣，則 <span class="math inline">\(E_{0} = \mbox{ker}(A)\)</span> 和 <span class="math inline">\(E_{1} = \mbox{CS}(A)\)</span></li>
+</ol>
+</div>
+<div id="eigen-value-decomposition-特徵值分解" class="section level2 hasAnchor" number="2.11">
+<h2><span class="header-section-number">2.11</span> Eigen Value Decomposition (特徵值分解)<a href="linear-algebra.html#eigen-value-decomposition-特徵值分解" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>特徵值分解為對角化的特例，若 <span class="math inline">\(A \in F^{n\times n}\)</span> 為<strong>對稱</strong>矩陣，則 <span class="math inline">\(A\)</span> 的特徵向量會正交，我們令各個特徵基底的長度為 <span class="math inline">\(1\)</span>，則特徵基底會形成一組<strong>正交基</strong>，則我們可以分解矩陣 <span class="math inline">\(A\)</span> 為向量投影到不同特徵空間</p>
+<p><span class="math display">\[
+A = \sum_{i=1}^k\lambda_i V_i\ V_i^T = \sum_{i = 1}^k\lambda_i P_i
+\]</span></p>
+<ul>
+<li><span class="math inline">\(\lambda_i\)</span> 為 <span class="math inline">\(A\)</span> 的特徵值，<span class="math inline">\(v_i\)</span> 為對應於 <span class="math inline">\(\lambda_i\)</span> 的特徵值</li>
+<li><span class="math inline">\(V_i\)</span> 的 Column vectors 為 <span class="math inline">\(E_{\lambda_i}\)</span> 中的基底，(各個 <span class="math inline">\(V_i\)</span> 大小取決於<span class="math inline">\(E_{\lambda_i}\)</span> 的維度)</li>
+<li><span class="math inline">\(P_i = V_i\ V_i^T\)</span>，有 <span class="math inline">\(P_i \ P_j \neq 0\)</span> for <span class="math inline">\(i \neq j\)</span> 和 <span class="math inline">\(\sum P_i = I\)</span> , <span class="math inline">\(P_i^2 = P_i\)</span></li>
+</ul>
+<p><strong>Clearly explantion :</strong> (為了便於解釋，假設所有特徵值相異)</p>
+<p>考慮 <span class="math inline">\(V V^Tu\)</span>，向量 <span class="math inline">\(u\)</span> 投影到 <span class="math inline">\(v\)</span> 上的公式是 <span class="math inline">\(\frac{&lt;v,u&gt;}{||v||^2}v\)</span>，而 <span class="math inline">\(VV^Tu\)</span> 正是把 <span class="math inline">\(u\)</span> 投影到特徵向量上表示出來 :</p>
+<p><span class="math display">\[
+VV^Tu = \begin{bmatrix}
+\mid &amp; &amp; \mid \\
+v_1 &amp; \cdots &amp; v_n \\
+\mid &amp; &amp; \mid
+\end{bmatrix}\begin{bmatrix}
+\mid &amp; &amp; \mid \\
+v_1 &amp; \cdots &amp; v_n \\
+\mid &amp; &amp; \mid
+\end{bmatrix}^T\begin{bmatrix}
+u_0\\
+\vdots\\
+u_n
+\end{bmatrix} = \begin{bmatrix}
+\mid &amp; &amp; \mid \\
+v_1 &amp; \cdots &amp; v_k \\
+\mid &amp; &amp; \mid
+\end{bmatrix}\begin{bmatrix}
+&lt;v_1,u&gt;\\
+\vdots\\
+&lt;v_n,u&gt;
+\end{bmatrix}
+\]</span>
+<span class="math inline">\(\ \ \ \ \ \ \ \ \ \ \ \ = \ &lt;v_1,u&gt;v_1 + &lt;v_2,u&gt;v_2 + \cdots + &lt;v_n,u&gt;v_n\)</span></p>
+<p><span class="math inline">\(\mbox{Which represent as a projection onto Eigenspace than scale by the value of inner product.}\)</span></p>
+<p><span class="math inline">\(\mbox{An alternative view is direct sum, that is, seperate a vector into independent Eigen subspace.}\)</span></p>
+<p><span class="math inline">\(\mbox{Note that}\)</span> <span class="math inline">\(P_i\)</span> <span class="math inline">\(\mbox{stand for the projection matrix, and Vector space}\)</span> <span class="math inline">\(V = E_{\lambda_1}\oplus\cdots\oplus E_{\lambda_k}\)</span> <span class="math inline">\(\mbox{therefore, every Eigenspace is independent subspace, which implies}\)</span> <span class="math inline">\(P_i \ P_j = 0 \ \mbox{for} \ i \neq j.\)</span>
+<span class="math inline">\(\mbox{Moreover, the direct sum indicates that}\)</span> <span class="math inline">\(P_i\)</span> <span class="math inline">\(\mbox{contains a part of representation of}\)</span> <span class="math inline">\(v\)</span> <span class="math inline">\(\mbox{and it is}\)</span>
+<span class="math inline">\(\mbox{unique, hence, we paste every component together will return to}\)</span> <span class="math inline">\(v\)</span> <span class="math inline">\(\mbox{itself, which implies that}\)</span> <span class="math inline">\(\sum P_i = I.\)</span></p>
+<div id="simulltaneously-diagonalizable-同步對角化" class="section level3 hasAnchor" number="2.11.1">
+<h3><span class="header-section-number">2.11.1</span> Simulltaneously diagonalizable (同步對角化)<a href="linear-algebra.html#simulltaneously-diagonalizable-同步對角化" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>設 <span class="math inline">\(A, B \in F^{n\times n}\)</span> 若存在可逆矩陣 <span class="math inline">\(P \in F^{n\times n}\)</span> 使得 <span class="math inline">\(P^{-1}AP = D\)</span>，<span class="math inline">\(P^{-1}BP = \Lambda\)</span> 皆為對角矩陣，則稱 <span class="math inline">\(A, B\)</span> 可同步對角化</p>
+<p><strong>Note :</strong></p>
+<ul>
+<li><span class="math inline">\(A, B\)</span> 可同步對角化 <span class="math inline">\(\iff AB = BA\)</span></li>
+</ul>
+</div>
+<div id="diagonalization-and-function-limit-對角化與函數極限" class="section level3 hasAnchor" number="2.11.2">
+<h3><span class="header-section-number">2.11.2</span> Diagonalization and function limit (對角化與函數極限)<a href="linear-algebra.html#diagonalization-and-function-limit-對角化與函數極限" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>定義 <span class="math inline">\(e^A = \displaystyle \sum_{n=0}^{\infty}\frac{A^n}{n!}\)</span>，<span class="math inline">\(\sin A, \cos A\)</span> 也是同樣的定義方法
+若 <span class="math inline">\(B\)</span> 滿足 <span class="math inline">\(B^2 = A\)</span>，則稱 <span class="math inline">\(B = A^{1/2}\)</span>
+假設 <span class="math inline">\(A_1, \cdots, A_n\)</span> 為方陣形成的序列，若 <span class="math inline">\(\displaystyle\lim_{k \to \infty}(A_k)_{ij} = A_{ij}\)</span>，則稱序列極限存在且收斂到 <span class="math inline">\(A\)</span>，
+記做 <span class="math inline">\(\displaystyle \lim_{k \to \infty}A_k = A\)</span></p>
+<p><strong>Note :</strong></p>
+<ul>
+<li>若 <span class="math inline">\(A \sim B\)</span>，則 <span class="math inline">\(e^A \sim e^B\)</span></li>
+<li>若 <span class="math inline">\(\lambda\)</span> 為 <span class="math inline">\(A\)</span> 相對於 <span class="math inline">\(v\)</span> 的特徵值，則 <span class="math inline">\(e^{\lambda}\)</span> 為 <span class="math inline">\(e^A\)</span> 相對於 <span class="math inline">\(v\)</span> 的特徵值</li>
+<li><span class="math inline">\(\mbox{det}(e^A) = e^{tr(A)}\)</span></li>
+<li>若 <span class="math inline">\(A\)</span> 可對角化成 <span class="math inline">\(D\)</span>，則 <span class="math inline">\(e^A = P\ e^DP^{-1}\)</span> 為可逆矩陣</li>
+<li>若 <span class="math inline">\(A\)</span> 為實對稱矩陣，則 <span class="math inline">\(e^A\)</span> 為對稱且正定矩陣</li>
+<li>若 <span class="math inline">\(B = PAP^{-1}\)</span>，則 <span class="math inline">\(\displaystyle \lim_{k \to \infty}B^k = PDP^{-1}\)</span>，其中 <span class="math inline">\(\displaystyle\lim_{k \to \infty}A^k = D\)</span></li>
+<li>可對角矩陣的特徵值若滿足 <span class="math inline">\(\mid\ \lambda\mid \leq 1\)</span>，則此對角矩陣會收斂</li>
+</ul>
+<p><strong>Clearly explaintion :</strong></p>
+<ol style="list-style-type: decimal">
+<li>假設存在可逆矩陣 <span class="math inline">\(P\)</span> 使得 <span class="math inline">\(B = PAP^{-1}\)</span>，則 <span class="math inline">\(e^B = \sum\frac{B^n}{n!} = \sum\frac{(PAP^{-1})^n}{n!} = \sum\frac{PA^nP^{-1}}{n!} = Pe^AP^{-1}\)</span>，故 <span class="math inline">\(e^A \sim e^B\)</span></li>
+<li>假設 <span class="math inline">\(Av = \lambda v\)</span>，則 <span class="math inline">\(e^Av = \sum\frac{A^nv}{n!} = \sum \frac{\lambda^nv}{n!} = e^{\lambda}v\)</span>，故相對於 <span class="math inline">\(v\)</span> 特徵值為 <span class="math inline">\(e^{\lambda}\)</span></li>
+<li>矩陣行列式為特徵值相乘，故得此結論</li>
+<li><span class="math inline">\(e^D\)</span> 為正定矩陣，故特徵值皆為正數 <span class="math inline">\(\implies \mbox{det}(e^D) \neq 0\)</span></li>
+<li>若 <span class="math inline">\(A^T = A\)</span>，則 <span class="math inline">\((e^A)^T = \sum \frac{(A^T)^n}{n!} = \sum \frac{A^n}{n!} = e^A\)</span>，且有特徵值 <span class="math inline">\(e^{\lambda_i} \geq 0\)</span>，故 <span class="math inline">\(e^A\)</span> 為對稱正定矩陣</li>
+</ol>
+</div>
+<div id="simulltaneously-diagonalizable-同步對角化-1" class="section level3 hasAnchor" number="2.11.3">
+<h3><span class="header-section-number">2.11.3</span> Simulltaneously diagonalizable (同步對角化)<a href="linear-algebra.html#simulltaneously-diagonalizable-同步對角化-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>設 <span class="math inline">\(A, B \in F^{n\times n}\)</span> 若存在可逆矩陣 <span class="math inline">\(P \in F^{n\times n}\)</span> 使得 <span class="math inline">\(P^{-1}AP = D\)</span>，<span class="math inline">\(P^{-1}BP = \Lambda\)</span> 皆為對角矩陣，則稱 <span class="math inline">\(A, B\)</span> 可同步對角化</p>
+<p><strong>Note :</strong></p>
+<ul>
+<li><span class="math inline">\(A, B\)</span> 可同步對角化 <span class="math inline">\(\iff AB = BA\)</span></li>
+</ul>
+</div>
+<div id="diagonalization-and-function-limit-對角化與函數極限-1" class="section level3 hasAnchor" number="2.11.4">
+<h3><span class="header-section-number">2.11.4</span> Diagonalization and function limit (對角化與函數極限)<a href="linear-algebra.html#diagonalization-and-function-limit-對角化與函數極限-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>定義 <span class="math inline">\(e^A = \displaystyle \sum_{n=0}^{\infty}\frac{A^n}{n!}\)</span>，<span class="math inline">\(\sin A, \cos A\)</span> 也是同樣的定義方法
+若 <span class="math inline">\(B\)</span> 滿足 <span class="math inline">\(B^2 = A\)</span>，則稱 <span class="math inline">\(B = A^{1/2}\)</span>
+假設 <span class="math inline">\(A_1, \cdots, A_n\)</span> 為方陣形成的序列，若 <span class="math inline">\(\displaystyle\lim_{k \to \infty}(A_k)_{ij} = A_{ij}\)</span>，則稱序列極限存在且收斂到 <span class="math inline">\(A\)</span>，
+記做 <span class="math inline">\(\displaystyle \lim_{k \to \infty}A_k = A\)</span></p>
+<p><strong>Note :</strong></p>
+<ul>
+<li>若 <span class="math inline">\(A \sim B\)</span>，則 <span class="math inline">\(e^A \sim e^B\)</span></li>
+<li>若 <span class="math inline">\(\lambda\)</span> 為 <span class="math inline">\(A\)</span> 相對於 <span class="math inline">\(v\)</span> 的特徵值，則 <span class="math inline">\(e^{\lambda}\)</span> 為 <span class="math inline">\(e^A\)</span> 相對於 <span class="math inline">\(v\)</span> 的特徵值</li>
+<li><span class="math inline">\(\mbox{det}(e^A) = e^{tr(A)}\)</span></li>
+<li>若 <span class="math inline">\(A\)</span> 可對角化成 <span class="math inline">\(D\)</span>，則 <span class="math inline">\(e^A = P\ e^DP^{-1}\)</span> 為可逆矩陣</li>
+<li>若 <span class="math inline">\(A\)</span> 為實對稱矩陣，則 <span class="math inline">\(e^A\)</span> 為對稱且正定矩陣</li>
+<li>若 <span class="math inline">\(B = PAP^{-1}\)</span>，則 <span class="math inline">\(\displaystyle \lim_{k \to \infty}B^k = PDP^{-1}\)</span>，其中 <span class="math inline">\(\displaystyle\lim_{k \to \infty}A^k = D\)</span></li>
+<li>可對角矩陣的特徵值若滿足 <span class="math inline">\(\mid\ \lambda\mid \leq 1\)</span>，則此對角矩陣會收斂</li>
+</ul>
+<p><strong>Clearly explaintion :</strong></p>
+<ol style="list-style-type: decimal">
+<li>假設存在可逆矩陣 <span class="math inline">\(P\)</span> 使得 <span class="math inline">\(B = PAP^{-1}\)</span>，則 <span class="math inline">\(e^B = \sum\frac{B^n}{n!} = \sum\frac{(PAP^{-1})^n}{n!} = \sum\frac{PA^nP^{-1}}{n!} = Pe^AP^{-1}\)</span>，故 <span class="math inline">\(e^A \sim e^B\)</span></li>
+<li>假設 <span class="math inline">\(Av = \lambda v\)</span>，則 <span class="math inline">\(e^Av = \sum\frac{A^nv}{n!} = \sum \frac{\lambda^nv}{n!} = e^{\lambda}v\)</span>，故相對於 <span class="math inline">\(v\)</span> 特徵值為 <span class="math inline">\(e^{\lambda}\)</span></li>
+<li>矩陣行列式為特徵值相乘，故得此結論</li>
+<li><span class="math inline">\(e^D\)</span> 為正定矩陣，故特徵值皆為正數 <span class="math inline">\(\implies \mbox{det}(e^D) \neq 0\)</span></li>
+<li>若 <span class="math inline">\(A^T = A\)</span>，則 <span class="math inline">\((e^A)^T = \sum \frac{(A^T)^n}{n!} = \sum \frac{A^n}{n!} = e^A\)</span>，且有特徵值 <span class="math inline">\(e^{\lambda_i} \geq 0\)</span>，故 <span class="math inline">\(e^A\)</span> 為對稱正定矩陣</li>
+</ol>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="introduction-to-kriging.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="基礎微積分.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/USERNAME/REPO/edit/BRANCH/09-Linear-Algebra.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["_main.pdf", "_main.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
