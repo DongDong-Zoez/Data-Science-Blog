@@ -17,7 +17,7 @@ github-repo: rstudio/bookdown-demo
 
 # Introduction {-}
 
-Hi, 我是 DongDong，我會不定期的分享一些我在學習過程中的隨筆，詳情請見我的個人網頁 [DongDong]('https://bookdown.org/yihui/bookdown')
+Hi, 我是 DongDong，我會不定期的分享一些我在學習過程中的隨筆，詳情請見我的個人網頁 [DongDong]('https://dongdong-zoez.github.io/')
 
 > Promise me you'll always remember: You're braver than you believe, and stronger than you seem, and smarter than you think. ~ Christopher Robin to Pooh – A.A.Milne ~
 
