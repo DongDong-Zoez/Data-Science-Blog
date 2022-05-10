@@ -4,13 +4,13 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Page not found | 數據科學隨筆</title>
+  <title>Chapter 4 SIVI (Semi Implicity Variational Inference) | 數據科學隨筆</title>
   <meta name="description" content="<p>This is a minimal example of using the bookdown package to write a book.
 The HTML output format for this example is bookdown::gitbook,
 set in the _output.yml file.</p>" />
   <meta name="generator" content="bookdown 0.26 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Page not found | 數據科學隨筆" />
+  <meta property="og:title" content="Chapter 4 SIVI (Semi Implicity Variational Inference) | 數據科學隨筆" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="<p>This is a minimal example of using the bookdown package to write a book.
@@ -19,7 +19,7 @@ set in the _output.yml file.</p>" />
   <meta name="github-repo" content="rstudio/bookdown-demo" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Page not found | 數據科學隨筆" />
+  <meta name="twitter:title" content="Chapter 4 SIVI (Semi Implicity Variational Inference) | 數據科學隨筆" />
   
   <meta name="twitter:description" content="<p>This is a minimal example of using the bookdown package to write a book.
 The HTML output format for this example is bookdown::gitbook,
@@ -36,8 +36,8 @@ set in the _output.yml file.</p>" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-
-
+<link rel="prev" href="基礎微積分.html"/>
+<link rel="next" href="你真的看懂雙標圖嗎.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -308,19 +308,124 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="page-not-found" class="section level1">
-<h1>Page not found</h1>
-<p>The page you requested cannot be found (perhaps it was moved or renamed).</p>
-<p>You may want to try searching to find the page's new location, or use
-the table of contents to find the page you are looking for.</p>
+<div id="sivi-semi-implicity-variational-inference" class="section level1 hasAnchor" number="4">
+<h1><span class="header-section-number">Chapter 4</span> SIVI (Semi Implicity Variational Inference)<a href="sivi-semi-implicity-variational-inference.html#sivi-semi-implicity-variational-inference" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>SIVI 是貝葉思推斷的進階觀念，在討論 SIVI 之前，我們先來談談何謂變分推斷、模型推斷、以及 SIVI 在解決什麼問題。</p>
+<p>本文框架皆是在監督式學習以及統計的角度下看待神經網路和機器學習</p>
+<div id="model-inference" class="section level2 hasAnchor" number="4.1">
+<h2><span class="header-section-number">4.1</span> Model Inference<a href="sivi-semi-implicity-variational-inference.html#model-inference" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>模型推斷基本上是機器學習中最常用的技巧之一。我們手中的資料通常都是樣本的特徵 <span class="math inline">\(x_i = (x_{i1}, \cdots, x_{ip})\)</span> 加上樣本對應的標籤 <span class="math inline">\(y_i\)</span>，這樣成隊出現的資料有一個概率 <span class="math inline">\(p(x,y)\)</span>，也就是我們蒐集到這筆資料的概率，或者說這筆資料是從一個機率分配 <span class="math inline">\(p\)</span> 產生的，可以是非常複雜的機率分配，也可以是非常簡單的</p>
+<p>我們希望用蒐集到的資料來建立模型，最後可以用在測試集上預測，也就是窮舉所有的 <span class="math inline">\(y\)</span>，找一個 <span class="math inline">\(y\)</span> 使得 <span class="math inline">\(y=\arg\max_{y^*} p(y^*|x_{new})\)</span>，這樣的問題可以透過貝葉思解決，也就是透過 <span class="math inline">\(p(x,y)=p(x|y)p(y)\)</span> 來估計 <span class="math inline">\(p(y|x)\)</span></p>
+<p><span class="math display">\[
+p(y|x) = \frac{p(x|y)p(y)}{\int p(x|z)p(y)dy} 
+\]</span></p>
+<p><span class="math inline">\(p(x|y)\)</span> 可以是任何一個可解析形式，例如在樸素貝葉思中假設 <span class="math inline">\(p(x|y) \sim N(\mu_y,\sigma^2_y)\)</span>。由於先驗分配 <span class="math inline">\(p(x)\)</span> 積分運算太過複雜，上式中的解通常沒有一個可解析的形式。變分推斷就是透過建立一個變分分配 <span class="math inline">\(q(x)\)</span> 來估計 <span class="math inline">\(p(y|x)\)</span></p>
+</div>
+<div id="變分推斷" class="section level2 hasAnchor" number="4.2">
+<h2><span class="header-section-number">4.2</span> 變分推斷<a href="sivi-semi-implicity-variational-inference.html#變分推斷" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>在變分推斷中，我們會假設觀測值 <span class="math inline">\(x\)</span> 是被一個潛在變量 <span class="math inline">\(z\)</span> 影響，這到底是什麼意思呢? 我常常會舉這樣的一個例子，假設你今天看到小明出門帶雨傘，則小明帶雨傘是你的觀測值，那麼小明為什麼會帶雨傘呢? 你不知道，因為這是一個隱藏的變量，有可能是因為天氣預報，也有可能是因為他媽媽叫他帶的，不管是哪種都會影響小明做出要不要帶雨傘出門的決定，這就是隱變量，或者潛變量</p>
+<p>我們前面提到，變分推斷希望找到一個變分分配 <span class="math inline">\(q(z)\)</span> 來代表 <span class="math inline">\(p(z|x)\)</span>，當然，我們希望這兩個分配的差別越小越好，一種計算這種分配之間的抽象距離是透過 KL 散度</p>
+<ul>
+<li><span class="math inline">\(\text{KL(q(z)||p(z|x))} = \log p(z|x) + \mathbb{E}_{q(z)}[\log q(z)-\log p(x, z)]\)</span></li>
+<li><span class="math inline">\(\text{ELBO}:\)</span> - <span class="math inline">\(\mathbb{E}_{q(z)}[\log q(z)-\log p(x, z)]\)</span></li>
+<li><span class="math inline">\(\text{Target}:\)</span> Maximize <span class="math inline">\(\text{ELBO}\)</span></li>
+</ul>
+<p>我們的任務是盡量讓估計的分配與真實更為接近，也就是 <span class="math inline">\(\min_{q(z)}\text{KL(q(z)||p(z|x))}\)</span>，我們注意到在 KL 散度的第一項與 <span class="math inline">\(q\)</span> 無關，所以我們需要做的只有最小化後面第二項 (-ELBO)，也等同於最大化 <span class="math inline">\(\text{ELBO}\)</span>。</p>
+<p>那麼問題來了，這個 <span class="math inline">\(q(z)\)</span> 具體怎麼算呢? 有一種方法是 MFIV，他假設隱藏變量之間是沒有關係的，也就是</p>
+<p><span class="math display">\[
+q(z) = \prod q_i(z_i)
+\]</span></p>
+<p>不過這種假設跟樸素貝葉思一樣，太過天真了!! 因為現實蒐集到的資料大多是有相關的。</p>
+</div>
+<div id="sivi-半隱變分推斷" class="section level2 hasAnchor" number="4.3">
+<h2><span class="header-section-number">4.3</span> SIVI 半隱變分推斷<a href="sivi-semi-implicity-variational-inference.html#sivi-半隱變分推斷" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>先講講何謂隱分配，如果我們不知道一個分配具體的形式長成什麼樣子，可是我們卻可以從中做取樣的動作，則這個分配稱為隱分配。</p>
+<p>這樣講可能不是特別具體，設想神經網路的生成器，我們不知道生成器中做了什麼操作，但是我們可以給定一個特定的 noise 生成出我們想要的結果，也就是說我們從一個沒有具體形式的黑盒子中抽樣得到一筆新的 data，所以我們可以將神經網路看成是一種隱分配。</p>
+<div id="半隱分配" class="section level3 unnumbered hasAnchor">
+<h3>半隱分配<a href="sivi-semi-implicity-variational-inference.html#半隱分配" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>SIVI 中的重點是定義了半隱分配，如果一個隱分配的形式可以寫成以下形似，則稱為半隱分配</p>
+<p><span class="math display">\[
+q(z)=\int q_\xi(z|\psi)q_\phi(\psi)d\psi
+\]</span></p>
+<p>上式中的 <span class="math inline">\(\psi, \phi\)</span> 為兩個不同分配的參數，其中</p>
+<ul>
+<li><span class="math inline">\(q_\xi(z|\psi)\)</span> 為可解析形式，也就是我們知道具體分配長什麼樣子</li>
+<li><span class="math inline">\(q_\phi(\psi)\)</span> 可為不可解析形式，也就是我們不知道具體分配長什麼樣子</li>
+</ul>
+<p>我們可以看到積分中一半為可解析，一半為不可解析，所以稱為<strong>半隱</strong>。事實上，任一個隱分配 <span class="math inline">\(q(z)\)</span> 都可以被半隱分配逼近的無限好</p>
+<p><span class="math display">\[
+q_{\phi}(z) \approx \int N(z|\mu, \sigma)q_{\phi}(\mu)d\mu, \ \sigma^2 \to 0
+\]</span></p>
+<p>舉例來說，我們可以設定 <span class="math inline">\(q_\xi(z|\psi)\sim N(\mu_\psi,\Sigma_\psi)\)</span>，其中 <span class="math inline">\(\psi=T_\phi(\epsilon)\)</span> 有 <span class="math inline">\(\epsilon\sim N(0,1)\)</span></p>
+</div>
+<div id="抽樣問題" class="section level3 unnumbered hasAnchor">
+<h3>抽樣問題<a href="sivi-semi-implicity-variational-inference.html#抽樣問題" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>我們的目的是要從 <span class="math inline">\(q(z)\)</span> 中抽樣，所以我們只要能有效地從隱分配 <span class="math inline">\(q_{\phi}(\psi)\)</span> 中抽樣即可 (因為 <span class="math inline">\(q_\xi(z|\psi)\)</span> 為可解析形式)</p>
+<p>SIVI 估計 <span class="math inline">\(q_{\phi}(z)\)</span> 的核心概念是透過蒙地卡羅的方法</p>
+<p><span class="math display">\[
+\begin{aligned}
+q(z)&amp;=\int q_\xi(z|\psi)q_\phi(\psi)d\psi \\
+&amp;\approx \frac{1}{K}\sum_{k=1}^Kq_\phi(z|\psi^k) , \ \ \psi^k \sim q_{\phi}(\psi)
+\end{aligned}
+\]</span></p>
+<p>舉例來說 <span class="math inline">\(q_{\phi}(\psi)\)</span> 的抽樣可以是神經網路 <span class="math inline">\(T_\phi(\epsilon)\)</span> 的輸出，其中 <span class="math inline">\(\epsilon\)</span> 是 noise，<span class="math inline">\(\phi\)</span> 是網路參數</p>
+</div>
+<div id="optimization" class="section level3 unnumbered hasAnchor">
+<h3>Optimization<a href="sivi-semi-implicity-variational-inference.html#optimization" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>接下來我們來討論如何找到 <span class="math inline">\(q(z)\)</span>，回顧一下我們的任務是最大化 <span class="math inline">\(\text{ELBO}\)</span>，這部分的內容較多數學推導，有興趣的同學再去閱讀作者的原論文 <a href="https://arxiv.org/pdf/1805.11183.pdf">SIVI</a>，這裡我只擷取重點，對數學不感興趣的請直接跳到應用</p>
+<p>根據 KL 散度的凹性 (計算高維分配的 KL 散度比計算邊際分配的 KL 散度在平均困難)，我們有 ELBO 的下界為 <span class="math inline">\(\underline L(q(z|\psi),q_\phi(\psi))=-\mathbb{E}_{\psi\sim q_\phi(\psi)}\text{KL}(q(z|\psi)||p(z|x))+\log p(x)\)</span></p>
+<ul>
+<li>Convexity: <span class="math inline">\(\text{KL}(\mathbb{E_\psi q(z)||p(z|x)}) \leq \mathbb{E_\psi}\text{KL}(q(z)||p(z|x))\)</span></li>
+<li>ELBO 下界: <span class="math inline">\(\underline L(q(z|\psi),q_\phi(\psi))=-\mathbb{E}_{\psi\sim q_\phi(\psi)}\text{KL}(q(z|\psi)||p(z|x))+\log p(x)\)</span></li>
+</ul>
+<p>但是我們注意到，如果直接優化 <span class="math inline">\(\underline L\)</span>，會讓該式的解掉進 <span class="math inline">\(\phi^*\)</span>，這樣並不是我們想要的，所以我們會在原本的目標函數中加上正則項來避免掉進局部極小值</p>
+<ul>
+<li><span class="math inline">\(\phi^*=\arg\max_\phi-\mathbb{E}_{z\sim q(z|\psi)}\log\frac{q(z|\psi)}{p(z,x)}\)</span></li>
+</ul>
+</div>
+<div id="regularization" class="section level3 unnumbered hasAnchor">
+<h3>Regularization<a href="sivi-semi-implicity-variational-inference.html#regularization" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>我們在原本的 <span class="math inline">\(\underline L\)</span> 中加入了一個正則項 <span class="math inline">\(B_K\)</span> 來避免 SIVI 退化到一班的 VI</p>
+<ul>
+<li><span class="math inline">\(B_k=\mathbb{E}_{\psi,\psi^{(1)},\cdots,\psi^{(k)}\sim q_\phi(\psi)}\text{KL}(q(z|\psi)||\tilde h_K(z))\)</span></li>
+<li><span class="math inline">\(\tilde h_K(z)=\frac{q(z|\psi)+\sum q(z|\psi^{(k)})}{K+1}\)</span></li>
+<li>注意到 <span class="math inline">\(B_K \geq 0\)</span> 且 <span class="math inline">\(B_K = 0\)</span> 僅且僅當 <span class="math inline">\(K=0\)</span> 或 <span class="math inline">\(q_\phi(\psi)=\delta_{\phi^*}(\psi^*)\)</span></li>
+</ul>
+<p>所以我們的目標函數變成 <span class="math inline">\(\underline L + B_K\)</span>，隨著我們抽樣的越多 (<span class="math inline">\(K\)</span> 越大)，<span class="math inline">\(\underline L + B_K\)</span> 會漸進收斂到 ELBO</p>
+<p><span class="math display">\[
+\begin{aligned}
+\underline L + B_K = &amp;\mathbb{E}_{\psi,\psi^{(1)},\cdots,\psi^{(k)}\sim q_\phi(\psi)}\text{KL}(q(z|\psi)||\tilde h_K(z))\\ -&amp;\mathbb{E}_{\psi\sim q_\phi(\psi)}\text{KL}(q(z|\psi)||p(z|x))+\log p(x)
+\end{aligned}
+\]</span></p>
+</div>
+<div id="algorithm" class="section level3 unnumbered hasAnchor">
+<h3>Algorithm<a href="sivi-semi-implicity-variational-inference.html#algorithm" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><img src="https://i.imgur.com/6q3j6o4.jpg" /></p>
+</div>
+</div>
+<div id="應用" class="section level2 hasAnchor" number="4.4">
+<h2><span class="header-section-number">4.4</span> 應用<a href="sivi-semi-implicity-variational-inference.html#應用" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>SIVI 一個最大的應用是在變分自動編碼器上 (VAE)，接下來我們來談談什麼是 VAE，他又與我們今天的主題什麼關係</p>
+<div id="vae" class="section level3 unnumbered hasAnchor">
+<h3>VAE<a href="sivi-semi-implicity-variational-inference.html#vae" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>我們知道任何一張圖片或者一段文字都可以向量化來表示，換句話說，影像或者文字都來自於一個分配 <span class="math inline">\(p(x)\)</span>，這些影像或者文字可能是被某種我們不知道的元素影響 (潛變量 <span class="math inline">\(z\)</span>)，VAE 用 <span class="math inline">\(q_{\phi}(z|x)\)</span> 來逼近 <span class="math inline">\(p(x)\)</span> ，試圖在潛在空間找到潛變量和輸入的關係，至於分配 <span class="math inline">\(q(z|\mu(x,\phi),\sigma(x,\phi))\)</span> 的參數則是由編碼器訓練出來的，有 <span class="math inline">\(z=e^\sigma\epsilon+\mu\)</span>，其中 <span class="math inline">\(\epsilon\sim N(0,I)\)</span>，至此，我們得到任一樣本在潛空間的表現形式，可以想像成一種降維的方法，或者另一種編碼形式。假設我們輸入是一張 <span class="math inline">\(512*512\)</span> 的影像，如果分配 <span class="math inline">\(q\)</span> 的輸出維度為 <span class="math inline">\(100\)</span>，那我們只需要 <span class="math inline">\(100\)</span> 維的向量就足夠表現原來這張圖片</p>
+</div>
+<div id="vae-的極限" class="section level3 unnumbered hasAnchor">
+<h3>VAE 的極限<a href="sivi-semi-implicity-variational-inference.html#vae-的極限" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>在一般形式的 VAE 中，所使用的 <span class="math inline">\(q\)</span> 分配通常為高斯分配，所以不管你的神經網路再怎麼厲害，潛變量 <span class="math inline">\(z\)</span> 仍然會服從高斯分配，這樣對厚尾或者有偏斜的資料很不友善，SIVI 的解決方案是新增更多的隨機層 (<span class="math inline">\(M\)</span>)，並在每一層的輸入都加上 <span class="math inline">\(\epsilon_t\)</span></p>
+<p><img src="https://i.imgur.com/OJ9xYMc.jpg" /></p>
+<p>你可能會好奇，SIVI <span class="math inline">\(q_{\phi}(z|x)\)</span> 最後輸出不還是一個高斯分配嗎? 怎麼就特別了? 其實你注意到，當我們訓練完模型之後，模型的參數是已經固定了，給定一個樣本 <span class="math inline">\(x_i\)</span>，<span class="math inline">\(q_{\phi}(z|x)\)</span> 的參數都已經是一個確定的值了，雖然在普通 VAE 會在潛變量上加上一個 <span class="math inline">\(\epsilon\)</span> 確保結果在一定範圍內變化是一致的，但是仍舊是單一的高斯分配，SIVI 不一定，因為在每一層 Layer 都有加入一個隨機量，所以最後生成出來的結果是一個隨機向量，並不是一個定值，這樣就會讓你的分配產生不同的高斯分配</p>
+
+</div>
+</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-
-
+<a href="基礎微積分.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="你真的看懂雙標圖嗎.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -351,7 +456,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/USERNAME/REPO/edit/BRANCH/%s",
+"link": "https://github.com/USERNAME/REPO/edit/BRANCH/11-SIVI-Semi-Implicity-Variational-Inference.Rmd",
 "text": "Edit"
 },
 "history": {
@@ -359,7 +464,7 @@ gitbook.start({
 "text": null
 },
 "view": {
-"link": "https://github.com/DongDong-Zoez/Data-Science-Blog/blob/master/%s",
+"link": "https://github.com/DongDong-Zoez/Data-Science-Blog/blob/master/11-SIVI-Semi-Implicity-Variational-Inference.Rmd",
 "text": null
 },
 "download": ["bookdownproj.pdf", "bookdownproj.epub"],

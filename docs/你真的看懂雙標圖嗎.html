@@ -4,13 +4,13 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Page not found | 數據科學隨筆</title>
+  <title>Chapter 5 你真的看懂雙標圖嗎 ? | 數據科學隨筆</title>
   <meta name="description" content="<p>This is a minimal example of using the bookdown package to write a book.
 The HTML output format for this example is bookdown::gitbook,
 set in the _output.yml file.</p>" />
   <meta name="generator" content="bookdown 0.26 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Page not found | 數據科學隨筆" />
+  <meta property="og:title" content="Chapter 5 你真的看懂雙標圖嗎 ? | 數據科學隨筆" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="<p>This is a minimal example of using the bookdown package to write a book.
@@ -19,7 +19,7 @@ set in the _output.yml file.</p>" />
   <meta name="github-repo" content="rstudio/bookdown-demo" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Page not found | 數據科學隨筆" />
+  <meta name="twitter:title" content="Chapter 5 你真的看懂雙標圖嗎 ? | 數據科學隨筆" />
   
   <meta name="twitter:description" content="<p>This is a minimal example of using the bookdown package to write a book.
 The HTML output format for this example is bookdown::gitbook,
@@ -36,7 +36,7 @@ set in the _output.yml file.</p>" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-
+<link rel="prev" href="sivi-semi-implicity-variational-inference.html"/>
 
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
@@ -308,18 +308,99 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="page-not-found" class="section level1">
-<h1>Page not found</h1>
-<p>The page you requested cannot be found (perhaps it was moved or renamed).</p>
-<p>You may want to try searching to find the page's new location, or use
-the table of contents to find the page you are looking for.</p>
+<div id="你真的看懂雙標圖嗎" class="section level1 hasAnchor" number="5">
+<h1><span class="header-section-number">Chapter 5</span> 你真的看懂雙標圖嗎 ?<a href="你真的看懂雙標圖嗎.html#你真的看懂雙標圖嗎" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>PCA 大概是資料視覺化最常用的工具之一了，儘管 Autoencoder 的出現讓 kernel PCA 變成一個很雞肋的方法，傳統的 PCA 分析至今也有很多人在使用。最常見的視覺化方法是取 PCA 前兩大主成分進行點散圖的分析，不過這樣我們就不能在圖表上觀察到行與行之間的相關信息，雙標圖正是用來解決這一問題而提出的方法</p>
+<div id="pca-怎麼做" class="section level2 hasAnchor" number="5.1">
+<h2><span class="header-section-number">5.1</span> PCA 怎麼做<a href="你真的看懂雙標圖嗎.html#pca-怎麼做" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>很多人學習 PCA 都只學表像，其實 PCA 遠比你想的複雜，假設我們有資料矩陣 <span class="math inline">\(X_{n\times p}\)</span>，最常見的看法是最大資料變異，也就是找到一個新空間 <span class="math inline">\(a\)</span>，使得資料投影上去後變異最大 (這裡假設資料已做過行中心化)</p>
+<p><span class="math display">\[
+\max_a \text{Var}(Xa) = \frac{1}{n}\max_a \frac{a^\top X^\top Xa}{a^\top a}
+\]</span></p>
+<p>該式的解可以透過 Rayleigh quotient 解得 <span class="math inline">\(a\)</span> 是 <span class="math inline">\(\frac{1}{n}X^\top X\)</span> 最大特徵值對應的特徵向量，其實在最大變異的同時也在最小空間重構誤差 (詳見 MDS)，故常見的 PCA 有以下觀點</p>
+<ul>
+<li>降維後最大化資料之間的變異</li>
+<li>降維後空間的投影誤差最小，同 MDS</li>
+</ul>
+<p>最後一種看法是用 SVD 分解的角度看 PCA，根據 SVD 分解，我們有 <span class="math inline">\(X=U\Sigma V^\top\)</span>，其中 <span class="math inline">\(U\)</span> 矩陣蒐集了 <span class="math inline">\(X^\top X\)</span> 的特徵向量，<span class="math inline">\(V^\top\)</span> 矩陣蒐集了 <span class="math inline">\(X X^\top\)</span> 矩陣的特徵向量，其對應的奇異值被記錄在矩陣 <span class="math inline">\(\Sigma\)</span> 裡，所以事實上一個 PCA 包含了三個物件</p>
+<ul>
+<li>行間的特徵向量 (<span class="math inline">\(X^\top X\)</span>)</li>
+<li>列間的特徵向量 (<span class="math inline">\(XX^\top\)</span>)</li>
+<li>代表重要性的奇異值</li>
+</ul>
+<div id="資料處理手法" class="section level3 unnumbered hasAnchor">
+<h3>資料處理手法<a href="你真的看懂雙標圖嗎.html#資料處理手法" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>不同的資料前處理手法也會導致結果不同，常用的有五種，以下令 <span class="math inline">\(H=I_n - \frac{1}{n}J_n\)</span>，其中 <span class="math inline">\(J_n\)</span> 為全 1 矩陣</p>
+<ul>
+<li><span class="math inline">\(X:\)</span> 不做處理，通常會抓到 <span class="math inline">\([E(X)]^2 + E(X^2)\)</span>
+<ul>
+<li>如果資料之間的差距非常大，則 PC1 會因為平方關係一家獨大</li>
+</ul></li>
+<li><span class="math inline">\(XH:\)</span> 列中心化
+<ul>
+<li>一般使特徵料投影變異最大方法</li>
+</ul></li>
+<li><span class="math inline">\(HX:\)</span> 行中心化
+<ul>
+<li>一般使資料投影變異最大方法，也是最常用的 PCA</li>
+</ul></li>
+<li><span class="math inline">\(HXH:\)</span> 列行中心化
+<ul>
+<li>其實就是 MDS，重點在還原距離</li>
+</ul></li>
+<li><span class="math inline">\(X - \frac{1}{n}1^\top X1:\)</span> 全中心化
+<ul>
+<li>同不做處理，資料之間差距非常大也會影響圖表造成只有 PC1 重要</li>
+</ul></li>
+</ul>
+<p>之後我們可以再決定要不要除上標準差。</p>
+<p>注意!! 除上標準差的 PCA 會因為尺度縮減導致解釋變異比平均較為分散到所有主成分</p>
+</div>
+</div>
+<div id="biplot" class="section level2 hasAnchor" number="5.2">
+<h2><span class="header-section-number">5.2</span> Biplot<a href="你真的看懂雙標圖嗎.html#biplot" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>雙標圖是一種結合 PCA 降維結果以及原始資料行之間與主成分線性組合關係的圖表，綜上所述，不同的資料前處理手法也會影響雙標圖的呈現結果</p>
+<div id="怎麼畫" class="section level3 unnumbered hasAnchor">
+<h3>怎麼畫<a href="你真的看懂雙標圖嗎.html#怎麼畫" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>我們首先畫出降維後資料的點散圖，我們通常會乘以一個縮放係數來確保資料的範圍不會差異太大，最後我們知道 PCA 主成分其實是原始空間的線性組合，所以我們可以把原資料在前兩主成分的係數畫在 PC1 vs PC2 上，當然係數絕對值越大代表該特徵越顯著，具體步驟如下</p>
+<ul>
+<li>降維資料建立點散圖</li>
+<li>縮放資料 (除上資料的全距)</li>
+<li>根據原資料在主成分上的座標 (線性組合)，畫出 arrow</li>
+</ul>
+<p>除此之外，雙標圖還有很好的內積性質，arrow 之間的夾角代表相似度，可以想像是餘弦值</p>
+<ul>
+<li>垂直<span class="math inline">\(:\)</span> 無關</li>
+<li><span class="math inline">\(&lt;90:\)</span> 正相關，角度越小越相關</li>
+<li><span class="math inline">\(&gt;90:\)</span> 負相關，角度越大越不相關</li>
+</ul>
+</div>
+<div id="進階圖表" class="section level3 unnumbered hasAnchor">
+<h3>進階圖表<a href="你真的看懂雙標圖嗎.html#進階圖表" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>有些雙標圖會新增一些物件來幫助判讀更多信息</p>
+<ul>
+<li>多邊形: 沿著 biplot arrow 距離原點最遠的點連成的多邊形 (資料降維範圍)</li>
+<li>平均線: 畫上 biplot arrow 的平均線 (線性組合平均趨勢)</li>
+<li>平均位置: 畫上 biplot arrow 的平均點 (線性組合重心)</li>
+</ul>
+</div>
+<div id="如和判斷-biplot-的顯著性" class="section level3 unnumbered hasAnchor">
+<h3>如和判斷 biplot 的顯著性<a href="你真的看懂雙標圖嗎.html#如和判斷-biplot-的顯著性" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>當然，這個部分與 PCA 息息相關，回想我們怎麼判斷 PCA 的好壞? 我們是透過降維資料的特徵值累積變異來判斷一個主成分是否重要，同樣的，biplot 也是用相同的判斷手法，我們研究主成分之間的解釋變異比例來決定 biplot 的顯著性</p>
+</div>
+<div id="biplot-表格" class="section level3 unnumbered hasAnchor">
+<h3>Biplot 表格<a href="你真的看懂雙標圖嗎.html#biplot-表格" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>biplot 不僅能繪製圖表，也可把圖表資訊儲存成一個表格，我們可以計算 biplot arrow 的餘弦值或者相關係數來做成表個，概念同相關係數矩陣。也有統計學家用原資料做 t 檢定來看資料的顯著性</p>
+
+</div>
+</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-
+<a href="sivi-semi-implicity-variational-inference.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
 
     </div>
   </div>
@@ -351,7 +432,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/USERNAME/REPO/edit/BRANCH/%s",
+"link": "https://github.com/USERNAME/REPO/edit/BRANCH/12-Do-you-really-know-Biplot.Rmd",
 "text": "Edit"
 },
 "history": {
@@ -359,7 +440,7 @@ gitbook.start({
 "text": null
 },
 "view": {
-"link": "https://github.com/DongDong-Zoez/Data-Science-Blog/blob/master/%s",
+"link": "https://github.com/DongDong-Zoez/Data-Science-Blog/blob/master/12-Do-you-really-know-Biplot.Rmd",
 "text": null
 },
 "download": ["bookdownproj.pdf", "bookdownproj.epub"],

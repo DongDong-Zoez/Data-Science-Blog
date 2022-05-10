@@ -66,3 +66,11 @@ diagonalization-and-function-limit-對角化與函數極限-1
 特殊曲線之擺縣
 與路徑無關的線積分
 格林定理
+sivi-semi-implicity-variational-inference
+model-inference
+變分推斷
+sivi-半隱變分推斷
+應用
+你真的看懂雙標圖嗎
+pca-怎麼做
+biplot
